@@ -7,17 +7,17 @@ Recommendations will be categorized in to movies, tv-series, books, music, recip
 
 ## Technological specification
 
-Client framework: React + Redux
-Backend development: Node.js
-Cloud and database service : Google Cloud Platform 
-Real time communication: Socket.IO
+Client framework: React + Redux  
+Backend development: Node.js  
+Cloud and database service : Google Cloud Platform  
+Real time communication: Socket.IO  
 
 
-
+---
 
 We will code using both pair programming and individual coding.
 
 
-Contributors:
-Emil Edström emied641
-Evelyn Bankell eveba996
+Contributors:  
+Emil Edström emied641  
+Evelyn Bankell eveba996  
