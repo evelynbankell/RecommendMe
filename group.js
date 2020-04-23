@@ -111,7 +111,7 @@ async function deleteGroup(datastore, id) {
     //console.log("getGroup - key: ", key);
     try {
         let entity = await datastore.get(key);
-        entity = entity[0];  test if empty?!
+        entity = entity[0]; // test if empty?!
         if (entity == null)
             return null;
         let group = new Group(entity['id'], entity['title'], entity['imageURL'], entity['createdDate'], entity['createdBy']);
