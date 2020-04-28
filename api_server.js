@@ -54,11 +54,7 @@ const photo_bucket = 'tddd27-recommendme-photos';
 
 const group = require('./group');
 const post = require('./chatPost');
-
-
-//module.exports = {
-//    datastore: datastore
-//}
+const user = require('./user');
 
 
 app.get('/groups', async (req, res, next) => {
@@ -111,6 +107,70 @@ app.post('/groups', async (req, res, next) => {
     data['imageURL']= imageURL;
     let key = await group.addGroup(datastore, data);
     console.log("POST /groups", key);
+    res.json(`{id: ${key.id}}`);
+  }
+  catch(error) {
+    next(error);
+  }
+});
+
+//
+// USERS
+//
+// get all users
+app.get('/users', async (req, res, next) => {
+  try {
+    let users = await user.getUsers(datastore);
+    console.log("GET /users", users);
+
+    res.json(users);
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
+// get a user
+app.get('/users/:id', async (req, res, next) => {
+  console.log("GET /users/:id ", req.params)
+  try {
+    const id = req.params.id;
+    let users = await user.getUser(datastore, id);
+    console.log("GET /users/:id ", users);
+    if (users == null)
+      res.status(404).send({});
+    else
+      res.json(users);
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
+
+//add a user
+app.post('/users', async (req, res, next) => {
+  // upload image and move to GCP Storage
+
+  // TODO: add a default image here
+  let imageURL = '';
+  try {
+    if(req.files) {
+        let userPhoto = req.files.userPhoto;
+        let unique_filename = uniqueFilename('') + path.extname(userPhoto.name);
+        userPhoto.mv('./uploads/' + unique_filename);
+        imageURL = await uploadFile('./uploads/', unique_filename);
+    }
+  } catch (err) {
+      res.status(500).send(err);
+  }
+
+  // insert group into GCP DataStore
+  try {
+    let data = req.body;
+    data['imageURL']= imageURL;
+    let key = await user.addUser(datastore, data);
+    console.log("POST /users", key);
     res.json(`{id: ${key.id}}`);
   }
   catch(error) {
