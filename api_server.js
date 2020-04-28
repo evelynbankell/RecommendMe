@@ -67,7 +67,7 @@ const group = require('./group');
 const post = require('./chatPost');
 const user = require('./user');
 const groupMember = require('./groupMember');
-
+const recommendation = require('./recommendation');
 
 app.get('/groups', async (req, res, next) => {
   try {
@@ -124,6 +124,67 @@ app.post('/groups', async (req, res, next) => {
   catch(error) {
     next(error);
   }
+});
+
+
+//
+// RECOMMENDATIONS
+//
+// get recommendations for a group
+app.get('/groups/:id/recommendations', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    let recommendations = await recommendation.getRecommendations(datastore, id);
+    console.log("GET /group/:id/recommendations", recommendations);
+
+    res.json(recommendations);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/* FIXA
+app.get('/groups/:groupId/recommendations/:reId', async (req, res, next) => {
+  try {
+    const groupId = req.params.groupId;
+    const reId = req.params.reId;
+
+    let recommendations = await recommendation.getRecommendation(datastore, groupId, reId);
+    console.log("GET /group/:groupId/recommendations/:reId", recommendations);
+
+    res.json(recommendations);
+  } catch (error) {
+    next(error);
+  }
+});
+**/
+
+// post a recommendation in a group
+app.post('/groups/:id/recommendations', async (req, res, next) => {
+  let imageURL = '';
+  try {
+    if(req.files) {
+        let recommendPhoto = req.files.userPhoto;
+        let unique_filename = uniqueFilename('') + path.extname(recommendPhoto.name);
+        recommendPhoto.mv('./uploads/' + unique_filename);
+        imageURL = await uploadFile('./uploads/', unique_filename);
+    }
+  } catch (err) {
+      res.status(500).send(err);
+  }
+  try {
+    let data = req.body;
+    data['imageUrl']= imageURL;
+    let key = await recommendation.addRecommendation(datastore, id, data);
+    console.log("POST /groups/:id/recommendations", key);
+
+    res.json(`{id: ${key.id}}`);
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+
 });
 
 //
