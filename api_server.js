@@ -1,3 +1,14 @@
+/*
+Evelyn Bankell, eveba996
+Emil Edström, emied641
+2020-04-26
+
+REST APIS for course tddd27
+Written in Nodejs with express
+
+database stored in Google Cloud Platform
+*/
+
 'use strict';
 
 const express = require('express');
@@ -51,10 +62,11 @@ const storage = new Storage({projectId, keyFilename});
 
 const photo_bucket = 'tddd27-recommendme-photos';
 
-
+//Request of js files
 const group = require('./group');
 const post = require('./chatPost');
 const user = require('./user');
+const groupMember = require('./groupMember');
 
 
 app.get('/groups', async (req, res, next) => {
@@ -178,28 +190,6 @@ app.post('/users', async (req, res, next) => {
   }
 });
 
-
-// Uploads a local file to the bucket
-async function uploadFile(filepath, filename) {
-
-  let bucket_item = await storage.bucket(photo_bucket).upload(filepath + filename, {
-    // Support for HTTP requests made with `Accept-Encoding: gzip`
-    gzip: true,
-    // By setting the option `destination`, you can change the name of the
-    // object you are uploading to a bucket.
-    metadata: {
-      // Enable long-lived HTTP caching headers
-      // Use only if the contents of the file will never change
-      // (If the contents will change, use cacheControl: 'no-cache')
-      cacheControl: 'public, max-age=31536000',
-    },
-  });
-  //await storage.bucket(photo_bucket).file(filename).makePublic();
-
-  return 'https://storage.cloud.google.com/' + photo_bucket + '/' + filename;
-}
-
-
 // REST API chatPost
 app.get('/group/:id/chatPosts', async (req, res, next) => {
   try {
@@ -231,9 +221,81 @@ app.post('/group/:id/chatPost', async (req, res, next) => {
 });
 
 
+//
+// GROUP MEMBERS
+//
+//add group member
+app.post('/groups/:groupId/users/:userId', async (req, res, next) => {
+  try {
+    const groupId = req.params.groupId;
+    const userId = req.params.userId;
+    let data = req.body;
+    console.log("data:", data);
+    let key = await groupMember.addGroupMember(datastore, groupId, userId, data);
+    console.log("POST /groups/:id/users", key);
+
+    res.json(`{key: ${key}}`); //`{key: ${key}}`
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
+//get users for specific group
+app.get('/groups/:id/users', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    //let data = req.body;
+
+    let key = await groupMember.getGroupMembers(datastore, id, req.body);
+    console.log("GET /groups/:id/users", key);
+
+    res.json(`{key: ${key}}`); //`{key: ${key}}`
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
+//get groups for specific user
+app.get('/users/:id/groups', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    //let data = req.body;
+
+    let key = await groupMember.getUserGroups(datastore, id, req.body);
+    console.log("GET /users/:id/groups", key);
+
+    res.json(`{key: ${key}}`); //`{key: ${key}}`
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
 
 
 
+
+
+// Uploads a local file to the bucket
+async function uploadFile(filepath, filename) {
+
+  let bucket_item = await storage.bucket(photo_bucket).upload(filepath + filename, {
+    // Support for HTTP requests made with `Accept-Encoding: gzip`
+    gzip: true,
+    // By setting the option `destination`, you can change the name of the
+    // object you are uploading to a bucket.
+    metadata: {
+      // Enable long-lived HTTP caching headers
+      // Use only if the contents of the file will never change
+      // (If the contents will change, use cacheControl: 'no-cache')
+      cacheControl: 'public, max-age=31536000',
+    },
+  });
+  //await storage.bucket(photo_bucket).file(filename).makePublic();
+
+  return 'https://storage.cloud.google.com/' + photo_bucket + '/' + filename;
+}
 
 
 
