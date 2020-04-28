@@ -53,6 +53,7 @@ const photo_bucket = 'tddd27-recommendme-photos';
 
 
 const group = require('./group');
+const post = require('./chatPost');
 
 
 //module.exports = {
@@ -137,6 +138,37 @@ async function uploadFile(filepath, filename) {
 
   return 'https://storage.cloud.google.com/' + photo_bucket + '/' + filename;
 }
+
+
+// REST API chatPost
+app.get('/group/:id/chatPosts', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    let chatPosts = await post.getChatPosts(datastore, id);
+    console.log("GET /group/:id/chatPosts", chatPosts);
+
+    res.json(chatPosts);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+app.post('/group/:id/chatPost', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+
+    let key = await post.insertChatPost(datastore, id, data);
+    console.log("POST /group/:id/chatPost", key, data);
+
+    res.json(key); //`{key: ${key}}`
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
 
 
 
