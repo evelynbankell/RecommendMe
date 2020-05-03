@@ -43,12 +43,12 @@ async function getGroups(datastore) {
 
 async function getGroup(datastore, id) {
 //TODO: fixa
-    console.log("getGroup - id: ", id);
+    //console.log("getGroup - id: ", id);
     const key = datastore.key(['Group', datastore.int(id)]);
-    console.log("getGroup - key: ", key);
+    //console.log("getGroup - key: ", key);
     try {
       let entity = await datastore.get(key);
-      console.log("getGroup - entity: ", entity);
+      //console.log("getGroup - entity: ", entity);
       entity = entity[0]; // test if empty?!
       if (entity == null)
         return null;

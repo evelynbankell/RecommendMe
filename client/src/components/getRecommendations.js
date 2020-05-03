@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import fetchRecommendations from '../redux/fetchRecommendations';
-import {getProductsError, getProductsPending, getRecommendations} from '../redux/reducers/recommendations';
+import { fetchRecommendations, fetchGroupRecommendations } from '../redux/fetchRecommendations';
+import {getProductsError, getProductsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 //import {getRecommendations} from '../redux/actions';
-
+import {getGroup} from '../redux/reducers/groups';
 
 
 const TableBody = ({ recommendation }) => (
@@ -34,41 +34,41 @@ class GetRecommendations extends React.Component {
     fetchRecommendations();
   };
 
+  componentDidMount() {
+      const {fetchGroupRecommendations} = this.props;
+      fetchGroupRecommendations(this.props.current_group.id);
+  }
+
   render() {
-    const {recommendations, error, pending} = this.props;
-    console.log("length", recommendations.length);
+    const {recommendations_current_group, current_group, error, pending} = this.props;
 
     return (
-        <div>
-          <ul>
-          {recommendations && recommendations.length
-            ? recommendations.map((recommendation, index) => {
-                return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
-              })
-            : "No recommendations"}
-          </ul>
-          <button onClick={this.handleGetRecommendations}>Get recommendations</button>
-        </div>
+        <React.Fragment>
+            {this.props.current_group.id
+              ? recommendations_current_group.map((recommendation, index) => {
+                if (recommendation.groupId == this.props.current_group.id)
+                  return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
+                })
+              : "No recommendations"}
+
+        </React.Fragment>
     )
   }
 }
 
-/*
-{recommendations && recommendations.length
-  ? recommendations.map((recommendation, index) => {
-      return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
-    })
-  : "No recommendations"}
-  */
+
 
 const mapStateToProps = state => ({
     error: getProductsError(state),
-    recommendations: getRecommendations(state),
+    recommendations_current_group: getGroupRecommendations(state),
+    recommendationsGroup: getRecommendationGroup(state),
+    current_group: getGroup(state),
     pending: getProductsPending(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchRecommendations: fetchRecommendations
+    fetchRecommendations: fetchRecommendations,
+    fetchGroupRecommendations: fetchGroupRecommendations
 }, dispatch)
 
 

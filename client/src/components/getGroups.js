@@ -17,7 +17,12 @@ class ShowOneGroup extends React.Component {
   }
     render() {
       return (
-        <p>{this.props.current_group.title}</p>
+        <p>
+        {this.props.current_group.id
+          ? <GetRecommendations current_group={this.props.current_group}/>
+          : "No recommendations"}
+
+        </p>
       )
     }
 }
@@ -33,6 +38,7 @@ class ShowGroups extends React.Component {
   };
 
   render() {
+
     return (
       <li onClick={() => this.handleClick(this.props.value.id)}>
         {this.props.value.title}
@@ -67,16 +73,16 @@ class GetGroups extends React.Component {
   render() {
     const {groups, error, pending, current_group} = this.props;
     const rows = this.props.groups;
-    return (
 
+    return (
       <React.Fragment>
         <div>
           <ul>
             {rows.map((row) =>
                 <ShowGroups key={row.id} value={row} handleGroup={(group) => {this.handleGroup(group)}}/>
               )}
-            </ul>
-            <ShowOneGroup current_group={current_group} groups={this.props.groups}/>
+          </ul>
+        <ShowOneGroup current_group={current_group} groups={this.props.groups}/>
         </div>
       </React.Fragment>
     )

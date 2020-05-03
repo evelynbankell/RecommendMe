@@ -14,6 +14,7 @@ module.exports = {
 function GroupMember(id, groupId, userId, joinedDate) {
     this.id = id;
     this.userId = userId;
+    this.groupId = groupId;
     this.joinedDate = joinedDate;
 }
 
@@ -23,16 +24,13 @@ async function addGroupMember(datastore, groupId, userId, groupMember) {
   const groupKey = datastore.key(['Group', datastore.int(groupId), 'GroupMember']);
   const task = {
     userId: userId,
+    groupId: groupId,
     joinedDate: groupMember.joinedDate
   };
 
   try {
       const entities = [{
         key: key,
-        data: task
-      },
-      {
-        key: groupKey,
         data: task
       }];
     await datastore.insert(entities);

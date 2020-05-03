@@ -10,17 +10,10 @@ import { fetchOneGroup } from './redux/fetchGroups';
 import fetchProducts from './redux/fetchRecommendations';
 import './App.css';
 
-//import { addTodo } from "../redux/actions";
-
 
 class App extends React.Component {
 //  const showRecommendations = useSelector(state => state.recommendations);
   //const dispatch = useDispatch();
-
-  handleChangeGroup = (id) => {
-    console.log("BRA");
-    useDispatch(fetchOneGroup(id));
-  };
 
   render() {
     console.log("HEJHEJ");

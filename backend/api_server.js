@@ -81,7 +81,7 @@ app.get('/groups', async (req, res, next) => {
 });
 
 app.get('/groups/:id', async (req, res, next) => {
-  console.log("GET /groups/:id ", req.params)
+  //console.log("GET /groups/:id ", req.params)
   try {
     const id = req.params.id;
     let groups = await group.getGroup(datastore, id);
@@ -175,6 +175,7 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
   }
   try {
     let data = req.body;
+    const id = req.params.id;
     data['imageUrl']= imageURL;
     let key = await recommendation.addRecommendation(datastore, id, data);
     console.log("POST /groups/:id/recommendations", key);

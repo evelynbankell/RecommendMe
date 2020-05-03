@@ -1,6 +1,6 @@
-import {fetchRecommendationsBegin, fetchRecommendationsSuccess, fetchRecommendationsFailure} from './actions';
+import {fetchRecommendationsBegin, fetchRecommendationsSuccess, fetchGroupRecommendationsSuccess, fetchRecommendationsFailure} from './actions';
 
-export default function fetchRecommendations() {
+export function fetchRecommendations() {
     return dispatch => {
         dispatch(fetchRecommendationsBegin());
         fetch('http://localhost:8080/groups/5714489739575296/recommendations')
@@ -18,17 +18,16 @@ export default function fetchRecommendations() {
     }
 }
 
-export function testFetchRecommendations(id) {
-    console.log('JA - http://localhost:8080/groups/' + id + '/recommendations', id);
+export function fetchGroupRecommendations(id) {
     return dispatch => {
         dispatch(fetchRecommendationsBegin());
-        fetch('http://localhost:8080/groups/' + id + '/recommendations')
+        fetch('http://localhost:8080/groups/' + parseInt(id) + '/recommendations')
         .then(res => res.json())
         .then(res => {
             if(res.error) {
                 throw(res.error);
             }
-            dispatch(fetchRecommendationsSuccess(res));
+            dispatch(fetchGroupRecommendationsSuccess(res));
             return res;
         })
         .catch(error => {

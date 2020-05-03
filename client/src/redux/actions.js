@@ -1,20 +1,6 @@
-import { ADD_RECOMMENDATION,
-  GET_RECOMMENDATIONS,
-  FETCH_RECOMMENDATIONS_BEGIN, FETCH_RECOMMENDATIONS_SUCCESS, FETCH_RECOMMENDATIONS_FAILURE } from "./actionTypes";
-
-
-
-
-export function getRecommendations(recommendations) {
-  console.log("hejGET", recommendations);
-  return {
-      type: GET_RECOMMENDATIONS,
-      payload: {
-        recommendations: recommendations
-      }
-
-  }
-}
+import { FETCH_RECOMMENDATIONS_BEGIN, FETCH_RECOMMENDATIONS_SUCCESS,
+  FETCH_GROUP_RECOMMENDATIONS_SUCCESS, FETCH_RECOMMENDATIONS_FAILURE }
+  from "./actionTypes";
 
 
 export function fetchRecommendationsBegin() {
@@ -29,6 +15,18 @@ export function fetchRecommendationsSuccess(recommendations) {
         type: FETCH_RECOMMENDATIONS_SUCCESS,
         payload: {
           recommendations: recommendations
+        }
+
+
+    }
+}
+
+export function fetchGroupRecommendationsSuccess(recommendations_current_group) {
+    console.log("hej", recommendations_current_group);
+    return {
+        type: FETCH_GROUP_RECOMMENDATIONS_SUCCESS,
+        payload: {
+          recommendations_current_group: recommendations_current_group,
         }
 
 
