@@ -1,5 +1,11 @@
 //allows user to input a recommendation
 
+/*
+
+FIXA
+
+*/
+
 
 //import { addRecommendation } from "../redux/actions";
 

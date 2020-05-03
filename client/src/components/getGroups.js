@@ -1,5 +1,3 @@
-//allows user to input a recommendation
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -31,29 +29,17 @@ class ShowGroups extends React.Component {
   }
 
   handleClick = (id) => {
-    //this.current_group = group;
     this.props.handleGroup(id);
   };
 
   render() {
-      if (this.props.groups && this.props.groups.length) {
-      const rows = this.props.groups.map((row, index) => {
-        return (
-            <ul>
-            <li onClick={() => this.handleClick(row.id)}>
-              {row.title}
-            </li>
-            </ul>
-        )
-      })
-      return rows
-    }
-    return null
+    return (
+      <li onClick={() => this.handleClick(this.props.value.id)}>
+        {this.props.value.title}
+      </li>
+    )
   }
 }
-
-
-
 
 
 class GetGroups extends React.Component {
@@ -80,12 +66,16 @@ class GetGroups extends React.Component {
 
   render() {
     const {groups, error, pending, current_group} = this.props;
-
+    const rows = this.props.groups;
     return (
 
       <React.Fragment>
         <div>
-            <ShowGroups groups={this.props.groups} handleGroup={(group) => {this.handleGroup(group)}}/>
+          <ul>
+            {rows.map((row) =>
+                <ShowGroups key={row.id} value={row} handleGroup={(group) => {this.handleGroup(group)}}/>
+              )}
+            </ul>
             <ShowOneGroup current_group={current_group} groups={this.props.groups}/>
         </div>
       </React.Fragment>

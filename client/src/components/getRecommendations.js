@@ -1,9 +1,3 @@
-//allows user to input a recommendation
-
-
-//import { addRecommendation } from "../redux/actions";
-
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
