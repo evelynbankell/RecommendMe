@@ -6,6 +6,8 @@ import { fetchAddRecommendation } from '../redux/fetchRecommendations';
 import {getRecommendations, getRecommendationsError, getRecommendationsPending} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 
+import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
+
 
 class AddRec extends React.Component {
   constructor(props) {
@@ -59,10 +61,12 @@ class AddRec extends React.Component {
     return (
 
 
-      <form onSubmit={this.onFormSubmit}>
-            <p>CREATE NEW RECOMMENDATION:</p>
+      <Form onSubmit={this.onFormSubmit}>
+            <small className="m-2">CREATE NEW RECOMMENDATION:</small>
+        <div className="row">
+          <div className="col-6">
 
-            <label name="category" type="text" label="Category">Category: </label>
+            <label className="small pr-2" name="category" type="text" label="Category">Category: </label>
             <input
             type="string"
             name="category"
@@ -71,8 +75,9 @@ class AddRec extends React.Component {
             value={category}
             onChange={this.handleChangeCategory}
             />
-
-            <label name="title" type="text" label="Title">Title: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="title" type="text" label="Title">Title: </label>
             <input
             type="string"
             name="title"
@@ -81,8 +86,9 @@ class AddRec extends React.Component {
             value={title}
             onChange={this.handleChangeTitle}
             />
-
-            <label name="description" type="text" label="Description">Description: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="description" type="text" label="Description">Description: </label>
             <input
             type="text"
             name="description"
@@ -91,51 +97,58 @@ class AddRec extends React.Component {
             value={description}
             onChange={this.handleChangeDescription}
             />
-
-            <label name="rate" type="text" label="Rate">Rating: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="rate" type="number" label="Rate">Rating: </label>
             <input
-            type="integer"
+            type="number"
             name="rate"
             id="name"
-            placeholder="Enter a number 0-5"
+            placeholder=""
+            max="5"
+            min="0"
             value={rate}
             onChange={this.handleChangeRate}
             />
-
-            <label name="source" type="text" label="Source">Source: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="source" type="text" label="Source">Source: </label>
             <input
             type="string"
             name="source"
             id="name"
-            placeholder="Where"
+            placeholder="Enter where you found it"
             value={source}
             onChange={this.handleChangeSource}
             />
-
-            <label name="who" type="text" label="Who">Who: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="who" type="text" label="Who">Who:  </label>
             <input
             type="string"
             name="who"
             id="name"
-            placeholder="Who made it?"
+            placeholder="Enter who made it"
             value={who}
             onChange={this.handleChangeWho}
             />
-
-            <label name="year" type="text" label="Year">Year: </label>
+          </div>
+          <div className="col-6">
+            <label className="small pr-2" name="year" type="text" label="Year">Year: </label>
             <input
-            type="integer"
+            type="text"
             name="year"
             id="name"
-            placeholder="Which year got it published?"
+            placeholder="Enter year of publish"
             value={year}
             onChange={this.handleChangeYear}
             />
-
-            <div>
-                <button type="submit">Create</button>
-            </div>
-        </form>
+          </div>
+          <div className="col-12">
+              <Button variant="primary" type="submit">Create</Button>
+          </div>
+          </div>
+        </Form>
     )
   }
 }
@@ -157,12 +170,14 @@ class AddRecommendation extends React.Component {
     const {recommendations, current_group, error, pending} = this.props;
     return (
         <React.Fragment>
-          {this.props.current_group.id ?
+          <div className="mt-3">
+            {this.props.current_group.id ?
 
-              <AddRec handleNewRec={(category, title, description, rate, source, who, year) =>
-                {this.handleNewRec(category, title, description, rate, source, who, year)}}/>
-              : ""
-          }
+                <AddRec handleNewRec={(category, title, description, rate, source, who, year) =>
+                  {this.handleNewRec(category, title, description, rate, source, who, year)}}/>
+                : ""
+            }
+          </div>
         </React.Fragment>
     )
   }

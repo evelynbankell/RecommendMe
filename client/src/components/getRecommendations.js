@@ -9,16 +9,48 @@ import {getGroup} from '../redux/reducers/groups';
 
 
 const TableBody = ({ recommendation }) => (
-  <li>
-    <span>
-      {recommendation.category}
-    </span>
-    &nbsp;
-    <span>
-      {recommendation.title}
-    </span>
-  </li>
+  <div className="row text-center border-bottom p-3">
+
+    <div className="col-12">
+      {recommendation.createdDate ?
+        <small>Date: {recommendation.createdDate}</small>
+      : ""}
+    </div>
+    <div className="col-12">
+      <p className="m-0 p-0"><strong>Title:</strong> {recommendation.title}</p>
+    </div>
+    <div className="col-12">
+      <p className="m-0 p-0"><strong>Category:</strong> {recommendation.category}</p>
+    </div>
+    <div className="col-12">
+      {recommendation.description ?
+        <p className="m-0 p-0"><strong>Description:</strong> {recommendation.description}</p>
+      : "" }
+    </div>
+    <div className="col-12">
+      {recommendation.source ?
+        <p className="m-0 p-0"><strong>Where:</strong> {recommendation.source}</p>
+      : "" }
+    </div>
+    <div className="col-12">
+      {recommendation.year ?
+        <p className="m-0 p-0"><strong>Year:</strong> {recommendation.year}</p>
+      : "" }
+    </div>
+    <div className="col-12">
+      {recommendation.who ?
+        <p className="m-0 p-0"><strong>Made by who:</strong> {recommendation.who}</p>
+      : "" }
+    </div>
+    <div className="col-12">
+      {recommendation.rate ?
+        <p className="m-0 p-0"><strong>Rating:</strong> {recommendation.rate}</p>
+      : "" }
+    </div>
+  </div>
+
 );
+
 
 class GetRecommendations extends React.Component {
   constructor(props) {
@@ -37,12 +69,16 @@ class GetRecommendations extends React.Component {
 
     return (
         <React.Fragment>
-            {this.props.current_group.id
-              ? recommendations_current_group.map((recommendation, index) => {
-                if (this.props.current_group.id === recommendation.groupId)
-                  return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
-                })
-              : "No recommendations"}
+          <div className="">
+            <div className="container">
+                {this.props.current_group.id
+                  ? recommendations_current_group.map((recommendation, index) => {
+                    if (this.props.current_group.id === recommendation.groupId)
+                      return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
+                    })
+                  : "No recommendations"}
+              </div>
+            </div>
 
         </React.Fragment>
     )
