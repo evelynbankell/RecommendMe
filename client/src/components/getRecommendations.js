@@ -32,8 +32,8 @@ class GetRecommendations extends React.Component {
 
   render() {
     const {recommendations_current_group, current_group, error, pending} = this.props;
-    console.log("current", current_group);
-    console.log("recommendations_current_group", recommendations_current_group);
+    //console.log("current", current_group);
+    //console.log("recommendations_current_group", recommendations_current_group);
 
     return (
         <React.Fragment>
