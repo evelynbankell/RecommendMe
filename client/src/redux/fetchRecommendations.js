@@ -1,4 +1,7 @@
-import {fetchRecommendationsBegin, fetchRecommendationsSuccess, fetchGroupRecommendationsSuccess, fetchRecommendationsFailure} from './actions';
+import {fetchRecommendationsBegin, fetchRecommendationsSuccess, fetchGroupRecommendationsSuccess,
+  addRecommendation, fetchRecommendationsFailure} from './actions';
+
+import axios from 'axios';
 
 export function fetchRecommendations() {
     return dispatch => {
@@ -36,21 +39,25 @@ export function fetchGroupRecommendations(id) {
     }
 }
 
-/*
-export function fetchOffers() {
-  return function action(dispatch) {
-    dispatch({ type: FETCH_OFFERS })
+export function fetchAddRecommendation(id, category, title, description, rate, source, who, year) {
+    console.log("bra");
+    const createdDate = new Date();
 
-    const request = axios({
-      method: 'GET',
-      url: `${BASE_URL}/offers`,
-      headers: []
-    });
+    return dispatch => {
 
-    return request.then(
-      response => dispatch(fetchOffersSuccess(response)),
-      err => dispatch(fetchOffersError(err))
-    );
-  }
+        const res = axios.post('http://localhost:8080/groups/' + parseInt(id) + '/recommendations', {
+            category,
+            title,
+            description,
+            rate,
+            source,
+            who,
+            year,
+            createdDate
+        })
+        .then((res) => {
+          dispatch(addRecommendation(res));
+          return res;
+        })
+      }
 }
-*/

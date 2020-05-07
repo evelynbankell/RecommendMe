@@ -5,6 +5,7 @@ import counterReducer from '../features/counter/counterSlice';
 import recommendations from './reducers/recommendations';
 import {getRecommendations} from './actions';
 import rootReducers from './reducers/index';
+const axios = require('axios');
 
 let initial_state = {
     current_group: {id: 0, title: "", imageURL: "", createdDate: null, createdBy: ""},
