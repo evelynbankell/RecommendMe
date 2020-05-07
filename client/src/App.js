@@ -3,6 +3,8 @@ import { Counter } from './features/counter/Counter';
 import AddRecommendation from './components/addRecommendation';
 import GetRecommendations from './components/getRecommendations';
 import GetGroups from './components/getGroups';
+import TopBar from './components/topBar';
+import SideBar from './components/sideBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecommendations, fetchProductsSuccess } from './redux/actions'
 import fetchRecommendations from './redux/fetchRecommendations';
@@ -16,13 +18,10 @@ class App extends React.Component {
   //const dispatch = useDispatch();
 
   render() {
-    console.log("HEJHEJ");
     return (
       <div className="App">
-        <p>
-          hej.
-          recommendations
-        </p>
+        <TopBar/>
+        <SideBar/>
         <GetGroups/>
       </div>
     )
