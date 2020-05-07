@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchRecommendations, fetchGroupRecommendations } from '../redux/fetchRecommendations';
+import { fetchRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
-//import {getRecommendations} from '../redux/actions';
 import {getGroup} from '../redux/reducers/groups';
 
 
@@ -21,9 +20,6 @@ const TableBody = ({ recommendation }) => (
   </li>
 );
 
-
-
-
 class GetRecommendations extends React.Component {
   constructor(props) {
       super(props);
@@ -34,28 +30,24 @@ class GetRecommendations extends React.Component {
     fetchRecommendations();
   };
 
-  componentDidMount() {
-      const {fetchGroupRecommendations} = this.props;
-      fetchGroupRecommendations(this.props.current_group.id);
-  }
-
   render() {
     const {recommendations_current_group, current_group, error, pending} = this.props;
+    console.log("current", current_group);
+    console.log("recommendations_current_group", recommendations_current_group);
 
     return (
         <React.Fragment>
             {this.props.current_group.id
               ? recommendations_current_group.map((recommendation, index) => {
-                if (recommendation.groupId == this.props.current_group.id)
+                if (this.props.current_group.id === recommendation.groupId)
                   return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
                 })
               : "No recommendations"}
-          
+
         </React.Fragment>
     )
   }
 }
-
 
 
 const mapStateToProps = state => ({
@@ -67,8 +59,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchRecommendations: fetchRecommendations,
-    fetchGroupRecommendations: fetchGroupRecommendations
+    fetchRecommendations: fetchRecommendations
 }, dispatch)
 
 

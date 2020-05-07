@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
-import {testFetchRecommendations} from '../redux/fetchRecommendations';
-import { fetchGroups } from '../redux/fetchGroups';
-import { fetchOneGroup } from '../redux/fetchGroups';
+import {fetchGroupRecommendations} from '../redux/fetchRecommendations';
+import { fetchOneGroup, fetchGroups } from '../redux/fetchGroups';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import GetRecommendations from './getRecommendations';
@@ -17,14 +16,14 @@ class ShowGroups extends React.Component {
       this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = (id) => {
-    this.props.handleGroup(id);
+  handleClick = (group) => {
+    this.props.handleGroup(group);
   };
 
   render() {
 
     return (
-      <li onClick={() => this.handleClick(this.props.value.id)}>
+      <li onClick={() => this.handleClick(this.props.value)}>
         {this.props.value.title}
       </li>
     )
@@ -42,10 +41,13 @@ class GetGroups extends React.Component {
     fetchGroups();
   };
 
-  handleGroup = (id) => {
-      const new_id = id.toString();
+  handleGroup = (group) => {
+      const new_id = group.id.toString();
+      const current_group = group;
       const {fetchOneGroup} = this.props;
       fetchOneGroup(new_id);
+      const {fetchGroupRecommendations} = this.props;
+      fetchGroupRecommendations(current_group.id);
   };
 
   componentDidMount() {
@@ -83,7 +85,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchGroups: fetchGroups,
-    fetchOneGroup: fetchOneGroup
+    fetchOneGroup: fetchOneGroup,
+    fetchGroupRecommendations: fetchGroupRecommendations
 }, dispatch)
 
 
