@@ -26,8 +26,16 @@
   color: rgb(112, 76, 182);
 }
 
+.colorTopBar{
+  background-color: rgb(180, 180, 180);
+  color: white;
+}
 
+.propertiesSideBar{
+  background-color: rgb(78, 78, 78);
+  color: white;
 
+}
 
 @keyframes App-logo-float {
   0% {

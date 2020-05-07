@@ -9,7 +9,7 @@ class TopBar extends Component{
   render(){
     return (
       <React.Fragment>
-      <Navbar bg="light" expand="lg">
+      <Navbar expand="lg">
         <Navbar.Brand href="#home">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

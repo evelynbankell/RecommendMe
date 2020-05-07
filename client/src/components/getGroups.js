@@ -24,9 +24,9 @@ class ShowGroups extends React.Component {
   render() {
 
     return (
-      <li onClick={() => this.handleClick(this.props.value.id)}>
+      <p onClick={() => this.handleClick(this.props.value.id)}>
         {this.props.value.title}
-      </li>
+      </p>
     )
   }
 }

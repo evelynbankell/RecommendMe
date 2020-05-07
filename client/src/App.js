@@ -21,12 +21,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div className="colorTopBar">
         <TopBar/>
+        </div>
           <div className="row">
-              <div className="col-3">
+              <div className="col-2 propertiesSideBar ">
                 <SideBar/>
               </div>
-              <div className="col-9">
+              <div className="col-10">
               <MainBox/>
               </div>
           </div>
