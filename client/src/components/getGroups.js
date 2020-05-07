@@ -9,6 +9,7 @@ import { fetchOneGroup } from '../redux/fetchGroups';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import GetRecommendations from './getRecommendations';
+import AddRecommendation from './addRecommendation';
 
 
 class ShowOneGroup extends React.Component {
@@ -21,8 +22,9 @@ class ShowOneGroup extends React.Component {
         {this.props.current_group.id
           ? <GetRecommendations current_group={this.props.current_group}/>
           : "No recommendations"}
-
+          <AddRecommendation current_group={this.props.current_group}/>
         </p>
+
       )
     }
 }

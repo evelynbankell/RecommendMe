@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchRecommendations, fetchGroupRecommendations } from '../redux/fetchRecommendations';
-import {getProductsError, getProductsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
+import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 //import {getRecommendations} from '../redux/actions';
 import {getGroup} from '../redux/reducers/groups';
 
@@ -50,7 +50,7 @@ class GetRecommendations extends React.Component {
                   return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
                 })
               : "No recommendations"}
-
+          
         </React.Fragment>
     )
   }
@@ -59,11 +59,11 @@ class GetRecommendations extends React.Component {
 
 
 const mapStateToProps = state => ({
-    error: getProductsError(state),
+    error: getRecommendationsError(state),
     recommendations_current_group: getGroupRecommendations(state),
     recommendationsGroup: getRecommendationGroup(state),
     current_group: getGroup(state),
-    pending: getProductsPending(state)
+    pending: getRecommendationsPending(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
