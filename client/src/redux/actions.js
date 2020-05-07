@@ -4,7 +4,6 @@ import { FETCH_RECOMMENDATIONS_BEGIN, FETCH_RECOMMENDATIONS_SUCCESS,
   from "./actionTypes";
 
 export function addRecommendation(recommendations) {
-    console.log("hej från action", recommendations);
     return {
         type: ADD_RECOMMENDATION,
         recommendations: {
@@ -27,19 +26,15 @@ export function fetchRecommendationsBegin() {
 }
 
 export function fetchRecommendationsSuccess(recommendations) {
-    console.log("hej", recommendations);
     return {
         type: FETCH_RECOMMENDATIONS_SUCCESS,
         payload: {
           recommendations: recommendations
         }
-
-
     }
 }
 
 export function fetchGroupRecommendationsSuccess(recommendations_current_group) {
-    console.log("hej", recommendations_current_group);
     return {
         type: FETCH_GROUP_RECOMMENDATIONS_SUCCESS,
         payload: {
@@ -56,13 +51,3 @@ export function fetchRecommendationsFailure(error) {
         error: error
     }
 }
-
-
-/*
-export function recomendationAdded(name) {
-  type: FETCH_PRODUCTS_SUCCESS,
-  payload: {
-    name: "test"
-  }
-}
-*/

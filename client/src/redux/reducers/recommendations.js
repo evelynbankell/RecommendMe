@@ -34,7 +34,6 @@ export default function recommendationsReducer(state = initialState, action) {
       }
 
     case FETCH_GROUP_RECOMMENDATIONS_SUCCESS:
-      //console.log("hej2", action.payload);
       return {
         ...state,
         pending: false,
@@ -50,7 +49,6 @@ export default function recommendationsReducer(state = initialState, action) {
       }
 
       case ADD_RECOMMENDATION:
-        console.log("hej från reducer", action.recommendations);
         return {
           ...state,
           pending: false,

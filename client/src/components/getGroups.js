@@ -42,10 +42,9 @@ class GetGroups extends React.Component {
   };
 
   handleGroup = (group) => {
-      const new_id = group.id.toString();
       const current_group = group;
       const {fetchOneGroup} = this.props;
-      fetchOneGroup(new_id);
+      fetchOneGroup(current_group.id);
       const {fetchGroupRecommendations} = this.props;
       fetchGroupRecommendations(current_group.id);
   };
