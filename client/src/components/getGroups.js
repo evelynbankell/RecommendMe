@@ -11,24 +11,6 @@ import {getRecommendations} from '../redux/reducers/recommendations';
 import GetRecommendations from './getRecommendations';
 import AddRecommendation from './addRecommendation';
 
-
-class ShowOneGroup extends React.Component {
-  constructor(props) {
-      super(props);
-  }
-    render() {
-      return (
-        <p>
-        {this.props.current_group.id
-          ? <GetRecommendations current_group={this.props.current_group}/>
-          : "No recommendations"}
-          <AddRecommendation current_group={this.props.current_group}/>
-        </p>
-
-      )
-    }
-}
-
 class ShowGroups extends React.Component {
   constructor(props) {
       super(props);
@@ -84,7 +66,6 @@ class GetGroups extends React.Component {
                 <ShowGroups key={row.id} value={row} handleGroup={(group) => {this.handleGroup(group)}}/>
               )}
           </ul>
-        <ShowOneGroup current_group={current_group} groups={this.props.groups}/>
         </div>
       </React.Fragment>
     )

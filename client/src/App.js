@@ -11,6 +11,7 @@ import fetchRecommendations from './redux/fetchRecommendations';
 import { fetchOneGroup } from './redux/fetchGroups';
 import fetchProducts from './redux/fetchRecommendations';
 import './App.css';
+import MainBox from './components/mainBox';
 
 
 class App extends React.Component {
@@ -21,8 +22,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopBar/>
-        <SideBar/>
-        <GetGroups/>
+          <div className="row">
+              <div className="col-3">
+                <SideBar/>
+              </div>
+              <div className="col-9">
+              <MainBox/>
+              </div>
+          </div>
       </div>
     )
   }
