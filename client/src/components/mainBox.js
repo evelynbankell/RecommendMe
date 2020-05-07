@@ -27,12 +27,10 @@ class MainBox extends Component{
     return (
       <React.Fragment>
         <div>
-          <p>
           {this.props.current_group.id
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
             <AddRecommendation current_group={this.props.current_group}/>
-          </p>
         </div>
     </React.Fragment>
     )

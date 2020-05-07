@@ -40,7 +40,6 @@ export function fetchGroupRecommendations(id) {
 }
 
 export function fetchAddRecommendation(id, category, title, description, rate, source, who, year) {
-    console.log("bra");
     const createdDate = new Date();
 
     return dispatch => {

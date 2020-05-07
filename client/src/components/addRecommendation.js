@@ -57,8 +57,11 @@ class AddRec extends React.Component {
   render() {
     const { category, title, description, rate, source, who, year, recommendations } = this.props;
     return (
+
+
       <form onSubmit={this.onFormSubmit}>
-          <p>CREATE NEW RECOMMENDATION:</p>
+            <p>CREATE NEW RECOMMENDATION:</p>
+
             <label name="category" type="text" label="Category">Category: </label>
             <input
             type="string"
@@ -152,13 +155,12 @@ class AddRecommendation extends React.Component {
 
   render() {
     const {recommendations, current_group, error, pending} = this.props;
-    if (this.props.current_group.id != null)
-      console.log("current_group", this.props.current_group.id);
-
     return (
         <React.Fragment>
           {this.props.current_group.id ?
-              <AddRec handleNewRec={(category, title, description, rate, source, who, year) => {this.handleNewRec(category, title, description, rate, source, who, year)}}/>
+
+              <AddRec handleNewRec={(category, title, description, rate, source, who, year) =>
+                {this.handleNewRec(category, title, description, rate, source, who, year)}}/>
               : ""
           }
         </React.Fragment>
