@@ -13,7 +13,6 @@ import fetchProducts from './redux/fetchRecommendations';
 import './App.css';
 import MainBox from './components/mainBox';
 
-
 class App extends React.Component {
 //  const showRecommendations = useSelector(state => state.recommendations);
   //const dispatch = useDispatch();
@@ -25,10 +24,10 @@ class App extends React.Component {
         <TopBar/>
         </div>
           <div className="row">
-              <div className="col-2 propertiesSideBar ">
+              <div className="col-3 propertiesSideBar ">
                 <SideBar/>
               </div>
-              <div className="col-10">
+              <div className="col-9">
               <MainBox/>
               </div>
           </div>

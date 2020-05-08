@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GetGroups from './getGroups';
+import Button from "react-bootstrap/Button";
 
 
 class SideBar extends Component{
@@ -10,6 +11,7 @@ class SideBar extends Component{
     return (
       <React.Fragment>
         <div className="createGroupText">
+
           <p> Create group</p>
         </div>
         <div>
