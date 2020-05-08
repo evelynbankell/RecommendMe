@@ -62,14 +62,15 @@ class AddRec extends React.Component {
 
 
       <Form onSubmit={this.onFormSubmit}>
-            <small className="m-2">CREATE NEW RECOMMENDATION:</small>
-        <div className="row">
+        <small className="pt-4 pb-4">CREATE NEW RECOMMENDATION:</small>
+        <div className="row form-group">
           <div className="col-6">
 
-            <label className="small pr-2" name="category" type="text" label="Category">Category: </label>
+            <label className="pt-2 pr-2 mb-0" name="category" type="text" label="Category">Category: </label>
             <input
             type="string"
             name="category"
+            className="form-control"
             id="name"
             placeholder="Enter a category"
             value={category}
@@ -77,10 +78,11 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="title" type="text" label="Title">Title: </label>
+            <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title: </label>
             <input
             type="string"
             name="title"
+            className="form-control"
             id="name"
             placeholder="Enter a title"
             value={title}
@@ -88,10 +90,11 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="description" type="text" label="Description">Description: </label>
+            <label className="pt-2 pr-2 mb-0" name="description" type="text" label="Description">Description: </label>
             <input
             type="text"
             name="description"
+            className="form-control"
             id="name"
             placeholder="Enter a description"
             value={description}
@@ -99,12 +102,13 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="rate" type="number" label="Rate">Rating: </label>
+            <label className="pt-2 pr-2 mb-0" name="rate" type="number" label="Rate">Rating: </label>
             <input
             type="number"
             name="rate"
+            className="form-control"
             id="name"
-            placeholder=""
+            placeholder="Enter between 0-5"
             max="5"
             min="0"
             value={rate}
@@ -112,10 +116,11 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="source" type="text" label="Source">Source: </label>
+            <label className="pt-2 pr-2 mb-0" name="source" type="text" label="Source">Source: </label>
             <input
             type="string"
             name="source"
+            className="form-control"
             id="name"
             placeholder="Enter where you found it"
             value={source}
@@ -123,10 +128,11 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="who" type="text" label="Who">Who:  </label>
+            <label className="pt-2 pr-2 mb-0" name="who" type="text" label="Who">Who:  </label>
             <input
             type="string"
             name="who"
+            className="form-control"
             id="name"
             placeholder="Enter who made it"
             value={who}
@@ -134,17 +140,18 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="small pr-2" name="year" type="text" label="Year">Year: </label>
+            <label className="pt-2 pr-2 mb-0" name="year" type="text" label="Year">Year: </label>
             <input
             type="text"
             name="year"
+            className="form-control"
             id="name"
             placeholder="Enter year of publish"
             value={year}
             onChange={this.handleChangeYear}
             />
           </div>
-          <div className="col-12">
+          <div className="col-12 pt-2">
               <Button variant="primary" type="submit">Create</Button>
           </div>
           </div>
@@ -170,7 +177,7 @@ class AddRecommendation extends React.Component {
     const {recommendations, current_group, error, pending} = this.props;
     return (
         <React.Fragment>
-          <div className="mt-3">
+          <div className="text-left mt-2">
             {this.props.current_group.id ?
 
                 <AddRec handleNewRec={(category, title, description, rate, source, who, year) =>
