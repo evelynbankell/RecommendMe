@@ -25,10 +25,10 @@ class App extends React.Component {
         <TopBar/>
         </div>
           <div className="row">
-              <div className="col-2 propertiesSideBar ">
+              <div className="col-3 propertiesSideBar ">
                 <SideBar/>
               </div>
-              <div className="col-10">
+              <div className="col-9">
               <MainBox/>
               </div>
           </div>
