@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAddGroup } from '../redux/fetchGroups';
+import { fetchOneGroup, fetchGroups, fetchAddGroup } from '../redux/fetchGroups';
+import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
 
-import {Form, Button } from 'react-bootstrap';
+import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
 
 class GroupForm extends React.Component {
@@ -74,6 +75,10 @@ class AddGroup extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  groups: getGroups(state),
+  current_group: getGroup(state)
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchAddGroup: fetchAddGroup,
@@ -81,5 +86,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 
 export default connect(
+    mapStateToProps,
     mapDispatchToProps
 )(AddGroup );
