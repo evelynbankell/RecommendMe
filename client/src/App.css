@@ -27,16 +27,38 @@
 }
 
 .colorTopBar{
-  background-color: rgb(180, 180, 180);
+  background-color: rgb(175, 240, 236);
   color: white;
 }
 
 .propertiesSideBar{
-  background-color: rgb(78, 78, 78);
-  color: white;
-
+  background-color: rgb(218, 242, 241);
+  color: rgb(54, 224, 187);
+  border-right: 1px solid black;
+  border-color: rgb(8, 163, 129);
+  font-family:sans-serif;
+  font-weight: bold;
+  height: 1000px;
 }
 
+.createGroupText{
+  padding-top: 10px;
+  border-bottom: 1px solid black;
+  border-color: rgb(8, 163, 129);
+  cursor: pointer;
+  color: rgb(8, 163, 129);
+}
+.createGroupText:hover{
+  color:black;
+}
+.groupTextLeftSideBar{
+  padding-top: 10px;
+  cursor: pointer;
+  color: rgb(8, 163, 129);
+}
+.mr-auto{
+    color: rgb(8, 163, 129);
+}
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);

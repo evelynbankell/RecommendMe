@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Navbar, Button, Nav} from 'react-bootstrap';
 import GetGroups from './getGroups';
 
 
@@ -10,6 +9,9 @@ class SideBar extends Component{
   render(){
     return (
       <React.Fragment>
+        <div className="createGroupText">
+          <p> Create group</p>
+        </div>
         <div>
           <GetGroups/>
         </div>

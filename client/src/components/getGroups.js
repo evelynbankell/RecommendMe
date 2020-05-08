@@ -61,7 +61,7 @@ class GetGroups extends React.Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div className= "groupTextLeftSideBar">
           <ul>
             {rows.map((row) =>
                 <ShowGroups key={row.id} value={row} handleGroup={(group) => {this.handleGroup(group)}}/>

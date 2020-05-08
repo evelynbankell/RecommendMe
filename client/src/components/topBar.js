@@ -9,16 +9,16 @@ class TopBar extends Component{
   render(){
     return (
       <React.Fragment>
-      <Navbar expand="lg">
-        <Navbar.Brand href="#home">Home</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-          </Nav>
-          <Navbar.Brand href="#installningar">Inställningar</Navbar.Brand>
-          <Navbar.Brand href="#logga-in">Logga in</Navbar.Brand>
-        </Navbar.Collapse>
-      </Navbar>
+          <Navbar expand="lg">
+            <Navbar.Brand href="#home">Home</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+              </Nav>
+              <Navbar.Brand href="#installningar">Inställningar</Navbar.Brand>
+              <Navbar.Brand href="#logga-in">Logga in</Navbar.Brand>
+            </Navbar.Collapse>
+          </Navbar>
     </React.Fragment>
     )
   }
