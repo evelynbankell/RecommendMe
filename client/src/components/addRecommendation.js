@@ -16,7 +16,7 @@ class AddRec extends React.Component {
   }
 
    onFormSubmit(val) {
-    this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year);
+    this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year, this.imageUrl);
   }
 
   //Not the best solution -> Try to make this prettier
@@ -54,10 +54,14 @@ class AddRec extends React.Component {
     const { name, value } = event.target;
     this.year = value;
   }
+  handleChangeImage = event => {
+    const { name, value } = event.target;
+    this.imageUrl = value;
+  }
 
 
   render() {
-    const { category, title, description, rate, source, who, year, recommendations } = this.props;
+    const { category, title, description, rate, source, who, year, recommendations,imageUrl } = this.props;
     return (
 
 
@@ -159,6 +163,19 @@ class AddRec extends React.Component {
             onChange={this.handleChangeYear}
             />
           </div>
+          <div className="col-6">
+            <label className="pt-2 pr-2 mb-0" name="imageUrl" type="text" label="imageUrl">Add image: </label>
+            <input
+            type="file"
+            name="imageUrl"
+            className="form-control"
+            id="name"
+            accept="image/*"
+            placeholder=""
+            value={imageUrl}
+            onChange={this.handleChangeImage}
+            />
+          </div>
           <div className="col-12 pt-2">
               <Button variant="primary" type="submit">Create</Button>
           </div>
@@ -175,10 +192,10 @@ class AddRecommendation extends React.Component {
       super(props);
   }
 
-  handleNewRec = (category, title, description, rate, source, who, year) => {
+  handleNewRec = (category, title, description, rate, source, who, year, imageUrl) => {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
-    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year);
+    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year,imageUrl);
   };
 
   render() {
@@ -188,8 +205,8 @@ class AddRecommendation extends React.Component {
           <div className="text-left mt-2">
             {this.props.current_group.id ?
 
-                <AddRec handleNewRec={(category, title, description, rate, source, who, year) =>
-                  {this.handleNewRec(category, title, description, rate, source, who, year)}}/>
+                <AddRec handleNewRec={(category, title, description, rate, source, who, year,imageUrl) =>
+                  {this.handleNewRec(category, title, description, rate, source, who, year,imageUrl)}}/>
                 : ""
             }
           </div>

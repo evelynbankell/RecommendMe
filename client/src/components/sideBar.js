@@ -19,8 +19,6 @@ class SideBar extends Component{
     return (
       <React.Fragment>
         <div className="createGroupText">
-
-          <p> Create group</p>
         </div>
         <div>
           <AddGroup />

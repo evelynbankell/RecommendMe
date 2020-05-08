@@ -165,9 +165,9 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
   let imageURL = '';
   try {
     if(req.files) {
-        let recommendPhoto = req.files.userPhoto;
-        let unique_filename = uniqueFilename('') + path.extname(recommendPhoto.name);
-        recommendPhoto.mv('./uploads/' + unique_filename);
+        let imageUrl = req.files.imageUrl;
+        let unique_filename = uniqueFilename('') + path.extname(imageUrl.name);
+        imageUrl.mv('./uploads/' + unique_filename);
         imageURL = await uploadFile('./uploads/', unique_filename);
     }
   } catch (err) {

@@ -49,7 +49,7 @@ export function fetchAddGroup(title) {
             title,
             createdDate
           },
-          { hearders: headers }
+          {}
         )
         .then((res) => {
           dispatch(addGroup(res));

@@ -13,7 +13,8 @@ export function addRecommendation(recommendations) {
           rate: recommendations.rate,
           source: recommendations.source,
           who: recommendations.who,
-          year: recommendations.year
+          year: recommendations.year,
+          imageUrl: recommendations.imageUrl
         }
     }
 }

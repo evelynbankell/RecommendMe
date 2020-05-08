@@ -1,5 +1,10 @@
 # TDDD27_2020_webproject
 
+
+## Link to mid course screencast
+https://youtu.be/C1BG7mdArx8
+
+
 ## Functional specification
 A web-application to share recommendations to friends in customizable groups. A log in system via Google authorization. Users can use a chat function to communicate with the other members of the group. Every user can create and be apart of several groups and invite their friends to join. 
 
