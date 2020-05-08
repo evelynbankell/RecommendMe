@@ -1,5 +1,7 @@
-import {fetchGroupsBegin, fetchGroupsSuccess, fetchGroupSuccess, fetchGroupsFailure} from './actions/groupActions';
-import fetch from 'cross-fetch';
+import {fetchGroupsBegin, fetchGroupsSuccess, fetchGroupSuccess,
+  addGroup, fetchGroupsFailure} from './actions/groupActions';
+//import fetch from 'cross-fetch';
+import axios from 'axios';
 
 export function fetchGroups() {
     return dispatch => {
@@ -35,4 +37,23 @@ export function fetchOneGroup(id) {
             dispatch(fetchGroupsFailure(error));
         })
     }
+}
+
+export function fetchAddGroup(title) {
+    const createdDate = new Date();
+    const headers = { 'Content-Type': 'form-data' }
+
+    return dispatch => {
+
+        const res = axios.post('http://localhost:8080/groups',{
+            title,
+            createdDate
+          },
+          { hearders: headers }
+        )
+        .then((res) => {
+          dispatch(addGroup(res));
+          return res;
+        })
+      }
 }

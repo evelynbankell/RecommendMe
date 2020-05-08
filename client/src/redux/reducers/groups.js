@@ -1,4 +1,5 @@
-import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS, FETCH_GROUPS_FAILURE } from "../actionTypes";
+import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS,
+  ADD_GROUP, FETCH_GROUPS_FAILURE } from "../actionTypes";
 
 
 const initialState = {
@@ -38,6 +39,15 @@ export default function groupsReducer(state = initialState, action) {
         ...state,
         pending: false,
         error: action.error
+      }
+
+    case ADD_GROUP:
+      return {
+        ...state,
+        pending: false,
+        groups: {
+          title: action.groups.title
+        }
       }
 
     default:

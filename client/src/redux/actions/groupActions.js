@@ -1,5 +1,13 @@
-import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS, FETCH_GROUPS_FAILURE } from "../actionTypes";
+import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS,
+  ADD_GROUP, FETCH_GROUPS_FAILURE } from "../actionTypes";
 
+
+export function addGroup(group) {
+    return {
+        type: ADD_GROUP,
+        groups: group
+    }
+}
 
 export function fetchGroupsBegin() {
     return {

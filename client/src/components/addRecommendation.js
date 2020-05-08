@@ -66,16 +66,24 @@ class AddRec extends React.Component {
         <div className="row form-group">
           <div className="col-6">
 
-            <label className="pt-2 pr-2 mb-0" name="category" type="text" label="Category">Category: </label>
+            <label className="pt-2 pr-2 mb-0" name="category" type="text" label="Category">Category:</label>
             <input
-            type="string"
             name="category"
             className="form-control"
-            id="name"
+            id="category"
             placeholder="Enter a category"
-            value={category}
+            list="categories"
             onChange={this.handleChangeCategory}
             />
+
+            <datalist id="categories">
+              <option value="E-Book"/>
+              <option value="TV-serie"/>
+              <option value="Movie"/>
+              <option value="Recipe"/>
+              <option value="Music"/>
+            </datalist>
+
           </div>
           <div className="col-6">
             <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title: </label>
@@ -142,7 +150,7 @@ class AddRec extends React.Component {
           <div className="col-6">
             <label className="pt-2 pr-2 mb-0" name="year" type="text" label="Year">Year: </label>
             <input
-            type="text"
+            type="number"
             name="year"
             className="form-control"
             id="name"
