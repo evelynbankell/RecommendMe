@@ -27,6 +27,7 @@ class MainBox extends Component{
     return (
       <React.Fragment>
         <div>
+        <h1> Rubrik </h1>
           {this.props.current_group.id
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
