@@ -76,7 +76,8 @@ app.get('/groups', async (req, res, next) => {
     res.json(groups);
   } catch (error) {
     next(error);
-    res.status(400).send(error);
+    console.log(err);
+    return res.sendStatus(400);
   }
 });
 
@@ -92,7 +93,8 @@ app.get('/groups/:id', async (req, res, next) => {
       res.json(groups);
   } catch (error) {
     next(error);
-    res.status(400).send(error);
+    console.log(err);
+    return res.sendStatus(400);
   }
 });
 
@@ -163,15 +165,18 @@ app.get('/groups/:groupId/recommendations/:reId', async (req, res, next) => {
 // post a recommendation in a group
 app.post('/groups/:id/recommendations', async (req, res, next) => {
   let imageURL = '';
+  console.log('TEST', req.files);
   try {
     if(req.files) {
-        let imageUrl = req.files.imageUrl;
-        let unique_filename = uniqueFilename('') + path.extname(imageUrl.name);
-        imageUrl.mv('./uploads/' + unique_filename);
+        console.log('TEST');
+        let imageURL = req.files.imageUrl;
+        let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
+        imageURL.mv('./uploads/' + unique_filename);
         imageURL = await uploadFile('./uploads/', unique_filename);
     }
   } catch (err) {
-      res.status(500).send(err);
+      console.log(err);
+      return res.sendStatus(500);
   }
   try {
     let data = req.body;
@@ -179,11 +184,11 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
     data['imageUrl']= imageURL;
     let key = await recommendation.addRecommendation(datastore, id, data);
     console.log("POST /groups/:id/recommendations", key);
-
     res.json(`{id: ${key.id}}`);
   } catch (error) {
     next(error);
-    res.status(400).send(error);
+    console.log(error);
+    return res.sendStatus(400);
   }
 
 });

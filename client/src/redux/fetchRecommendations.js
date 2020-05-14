@@ -40,6 +40,7 @@ export function fetchGroupRecommendations(id) {
 }
 
 export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl) {
+    console.log("bra");
     const createdDate = new Date();
     const formData = new FormData();
     formData.set('category', category);
@@ -51,19 +52,26 @@ export function fetchAddRecommendation(id, category, title, description, rate, s
     formData.set('year', year);
     formData.set('createdDate', createdDate);
     formData.append('imageUrl', imageUrl);
-    const headers = { 'Content-Type':'multipart/form-data' }
+
+    const config = {
+      headers: {
+      'Content-Type': 'multipart/form-data'
+      }
+    };
 
     return dispatch => {
 
-          const res = axios({
-            method: 'post',
-            url: 'http://localhost:8080/groups/' + parseInt(id) + '/recommendations',
-            data: formData,
-            headers: {'Content-Type': "multipart/form-data" }
-        })
-        .then((res) => {
+      const res = axios({
+        method: 'post',
+        url: 'http://localhost:8080/groups/' + parseInt(id) + '/recommendations',
+        data: formData
+      })
+      .then((res) => {
           dispatch(addRecommendation(res));
           return res;
+        })
+        .catch(error => {
+            dispatch(fetchRecommendationsFailure(error));
         })
       }
 }

@@ -54,14 +54,21 @@ class AddRec extends React.Component {
     const { name, value } = event.target;
     this.year = value;
   }
+
   handleChangeImage = event => {
-    const { name, value } = event.target;
-    this.imageUrl = value;
+
+    this.imageUrl = event.target.files[0];
+    console.log("HEJ", this.imageUrl);
+
+    //his.imageUrl = value.replace("C:\\fakepath\\", "");
+    //this.imageUrl.toString();
+    //console.log("HEJ", this.imageUrl);
+
   }
 
 
   render() {
-    const { category, title, description, rate, source, who, year, recommendations,imageUrl } = this.props;
+    const { category, title, description, rate, source, who, year, recommendations, imageUrl } = this.props;
     return (
 
 
@@ -168,10 +175,9 @@ class AddRec extends React.Component {
             <input
             type="file"
             name="imageUrl"
+            id="imageUrl"
             className="form-control"
-            id="name"
             accept="image/*"
-            placeholder=""
             value={imageUrl}
             onChange={this.handleChangeImage}
             />
@@ -195,7 +201,7 @@ class AddRecommendation extends React.Component {
   handleNewRec = (category, title, description, rate, source, who, year, imageUrl) => {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
-    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year,imageUrl);
+    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl);
   };
 
   render() {
@@ -205,8 +211,8 @@ class AddRecommendation extends React.Component {
           <div className="text-left mt-2">
             {this.props.current_group.id ?
 
-                <AddRec handleNewRec={(category, title, description, rate, source, who, year,imageUrl) =>
-                  {this.handleNewRec(category, title, description, rate, source, who, year,imageUrl)}}/>
+                <AddRec handleNewRec={(category, title, description, rate, source, who, year, imageUrl) =>
+                  {this.handleNewRec(category, title, description, rate, source, who, year, imageUrl)}}/>
                 : ""
             }
           </div>

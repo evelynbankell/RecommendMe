@@ -38,6 +38,7 @@ async function getGroups(datastore) {
     }
     catch(err) {
         console.error('ERROR: ', err);
+        return;
     }
 };
 
@@ -57,6 +58,7 @@ async function getGroup(datastore, id) {
     }
     catch(err) {
       console.error('ERROR: getGroup', err);
+      return;
     }
 };
 
