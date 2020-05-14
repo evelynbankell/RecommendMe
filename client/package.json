@@ -22,6 +22,7 @@
     "react-redux-form": "^1.16.14",
     "react-scripts": "3.4.1",
     "react-sidemenu": "^1.1.0",
+    "react-table": "^7.0.5",
     "redux-thunk": "^2.3.0",
     "thunk": "0.0.1"
   },

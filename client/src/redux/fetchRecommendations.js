@@ -40,8 +40,11 @@ export function fetchGroupRecommendations(id) {
 }
 
 export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl) {
-    console.log("bra");
-    const createdDate = new Date();
+    const today = new Date();
+    const date = today.getFullYear()+'-'+('0' +(today.getMonth()+1)).slice(-2) +'-'+('0' +(today.getDate())).slice(-2);
+    const time = ('0' +(today.getHours())).slice(-2) + ":" + ('0' +(today.getMinutes())).slice(-2);
+    var createdDate = date+' '+time;
+
     const formData = new FormData();
     formData.set('category', category);
     formData.set('title', title);

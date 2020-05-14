@@ -47,6 +47,11 @@ const TableBody = ({ recommendation }) => (
         <p className="m-0 p-0"><strong>Rating:</strong> {recommendation.rate}</p>
       : "" }
     </div>
+    <div className="col-12">
+      {recommendation.imageUrl ?
+        <p className="m-0 p-0"><strong>Image:</strong> {recommendation.imageUrl}</p>
+      : "" }
+    </div>
   </div>
 
 );
