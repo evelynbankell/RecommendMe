@@ -169,7 +169,7 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
   try {
     if(req.files) {
         console.log('TEST');
-        let imageURL = req.files.imageUrl;
+        imageURL = req.files.imageUrl;
         let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
         imageURL.mv('./uploads/' + unique_filename);
         imageURL = await uploadFile('./uploads/', unique_filename);
@@ -179,6 +179,7 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
       return res.sendStatus(500);
   }
   try {
+    console.log('img', imageURL);
     let data = req.body;
     const id = req.params.id;
     data['imageUrl']= imageURL;
