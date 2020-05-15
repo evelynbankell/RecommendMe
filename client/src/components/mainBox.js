@@ -28,10 +28,13 @@ class MainBox extends Component{
       <React.Fragment>
         <div>
         <h1> {this.props.current_group.title} </h1>
-          {this.props.current_group.id && this.props.user.active =="true"
+          <AddRecommendation current_group={this.props.current_group}/>
+          <div className="Bild">
+          <img src= {this.props.current_group.imageUrl} alt="" width="300" />
+          </div>
+          {this.props.current_group.id && this.props.user.active == "true"
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
-            <AddRecommendation current_group={this.props.current_group}/>
         </div>
     </React.Fragment>
     )

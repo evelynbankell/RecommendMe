@@ -41,6 +41,10 @@
   height: 1000px;
 }
 
+.Bild{
+    float: right;
+}
+
 .createGroupText:hover{
   color:black;
 }
