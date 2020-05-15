@@ -23,7 +23,7 @@ class LoginModal extends React.Component {
     const {fetchUser} = this.props;
     fetchUser(response.profileObj.email);
 
-    if (this.props.user) {
+    if (this.props.user.length!=0) {
       console.log("user found: ", this.props.user);
     } else {
       console.log("user  not found: ");
