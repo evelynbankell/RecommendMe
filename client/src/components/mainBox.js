@@ -11,7 +11,6 @@ import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
 
 
-
 class MainBox extends Component{
   constructor(props){
     super(props)
