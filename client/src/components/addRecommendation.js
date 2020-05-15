@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { fetchAddRecommendation } from '../redux/fetchRecommendations';
 import {getRecommendations, getRecommendationsError, getRecommendationsPending} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
+import { getUser } from '../redux/reducers/users';
+
 
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
@@ -205,7 +207,7 @@ class AddRecommendation extends React.Component {
   };
 
   render() {
-    const {recommendations, current_group, error, pending} = this.props;
+    const {recommendations, current_group, error, pending, user} = this.props;
     return (
         <React.Fragment>
           <div className="text-left mt-2">
@@ -225,6 +227,7 @@ const mapStateToProps = state => ({
     error: getRecommendationsError(state),
     recommendations: getRecommendations(state),
     current_group: getGroup(state),
+    user: getUser(state),
     pending: getRecommendationsPending(state)
 })
 

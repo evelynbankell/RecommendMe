@@ -41,7 +41,6 @@ export function fetchOneGroup(id) {
 
 export function fetchAddGroup(title) {
     const createdDate = new Date();
-    const headers = { 'Content-Type': 'form-data' }
 
     return dispatch => {
 
@@ -49,7 +48,6 @@ export function fetchAddGroup(title) {
             title,
             createdDate
           },
-          {}
         )
         .then((res) => {
           dispatch(addGroup(res));

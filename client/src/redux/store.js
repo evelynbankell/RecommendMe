@@ -14,7 +14,7 @@ let initial_state = {
     chatPosts_current_group: [{id: 0, content: "", createdDate: null, createdBy: ""}],
     recommendations_current_group: [{id: 0, category: "", createdDate: null, createdBy: "", description: "", imageUrl: "", rate: "", source: "", title: "", who: "", year: ""}],
     users: [{id: 0, email: "", name: "", active: false, imageURL: ""}],
-    current_user: {id: 0, email: "", name: "", active: false, imageURL: ""},
+    user: {id: 0, email: "", name: "", imageURL: ""},
     active_users: [{id: 0, email: ""}],
     show_login: false,
   }

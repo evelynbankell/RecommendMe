@@ -14,12 +14,11 @@ module.exports = {
 /*
  * Manage users
  */
- function User(id, email, name, active, imageURL, joined) {
-   this.id = id;
+ function User(email, name, imageURL, active) {
    this.email = email;
    this.name = name;
-   this.active = active;
    this.imageURL = imageURL;
+   this.active = active;
  }
 
 
@@ -32,7 +31,7 @@ module.exports = {
        let entities = await datastore.runQuery(query);
        entities = entities[0]; // test if empty?!
        for (const entity of entities) {
-         let user = new User(entity[datastore.KEY]['id'],entity['email'], entity['name'], entity['active'], entity['imageURL']);
+         let user = new User(entity['email'], entity['name'], entity['imageURL'], entity['active']);
          users.push(user);
        }
        return users;
@@ -42,18 +41,17 @@ module.exports = {
    }
  };
 
- async function getUser(datastore, id) {
+ async function getUser(datastore, email) {
  //TODO: fixa
-     console.log("getUser - id: ", id);
-     const key = datastore.key(['User', datastore.int(id)]);
-     console.log("getUser - key: ", key);
+     console.log("getUser - email: ", email);
+     const key = datastore.key(['User', email]);
      try {
        let entity = await datastore.get(key);
        console.log("getUser - entity: ", entity);
        entity = entity[0]; // test if empty?!
        if (entity == null)
          return null;
-       let user = new User(entity[datastore.KEY]['id'],entity['email'], entity['name'], entity['active'], entity['imageURL']);
+       let user = new User(entity['email'], entity['name'], entity['imageURL'], entity['active']);
        return user;
      }
      catch(err) {
@@ -63,14 +61,14 @@ module.exports = {
 
  async function addUser(datastore, user) {
    console.log("Insert new user: ", user);
-   const key = datastore.key('User', user.id);
-   key.title = user.id;
+   const key = datastore.key('User', user.email);
+   key.name = user.email;
    try {
      await datastore.save({
        key: key,
        data: user
      });
-     console.log(`User ${key.title} created successfully`);
+     console.log(`User ${key.name} created successfully`);
      return key;
    }
    catch(err) {
@@ -78,9 +76,9 @@ module.exports = {
    }
  };
 
- async function updateUser(datastore, id, active, imageURL) {
-   console.log("Update user: ", id);
-   const key = datastore.key('User', datastore.int(id));
+ async function updateUser(datastore, email, active, imageURL) {
+   console.log("Update user: ", email);
+   const key = datastore.key('User', datastore.string(email));
 
    let data = {};
    if (imageUrl != null)
@@ -93,7 +91,7 @@ module.exports = {
              active: active
            }
        });
-       console.log(`User ${key.id} updated successfully`);
+       console.log(`User ${key.name} updated successfully`);
        return key;
    }
    catch(err) {
