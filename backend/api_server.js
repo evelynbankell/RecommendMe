@@ -211,16 +211,16 @@ app.get('/users', async (req, res, next) => {
 });
 
 // get a user
-app.get('/users/:id', async (req, res, next) => {
-  console.log("GET /users/:id ", req.params)
+app.get('/users/:email', async (req, res, next) => {
+  console.log("GET /users/:email ", req.params.email)
   try {
-    const id = req.params.id;
-    let users = await user.getUser(datastore, id);
-    console.log("GET /users/:id ", users);
-    if (users == null)
-      res.status(404).send({});
-    else
+    const email = req.params.email;
+    let users = await user.getUser(datastore, email);
+    console.log("GET /users/:email ", users);
+    if (users)
       res.json(users);
+    else
+      return res.sendStatus(404);
   } catch (error) {
     next(error);
     res.status(400).send(error);
@@ -233,22 +233,22 @@ app.post('/users', async (req, res, next) => {
   // upload image and move to GCP Storage
 
   // TODO: add a default image here
-  let imageURL = '';
-  try {
-    if(req.files) {
-        let userPhoto = req.files.userPhoto;
-        let unique_filename = uniqueFilename('') + path.extname(userPhoto.name);
-        userPhoto.mv('./uploads/' + unique_filename);
-        imageURL = await uploadFile('./uploads/', unique_filename);
-    }
-  } catch (err) {
-      res.status(500).send(err);
-  }
+  //let imageURL = '';
+  //try {
+  //  if(req.files) {
+      //  imageURL = req.files.imageURL;
+    //    let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
+    //    imageURL.mv('./uploads/' + unique_filename);
+    //    imageURL = await uploadFile('./uploads/', unique_filename);
+  //  }
+  //} catch (err) {
+  //    res.status(500).send(err);
+  //}
 
   // insert group into GCP DataStore
   try {
     let data = req.body;
-    data['imageURL']= imageURL;
+  //  data['imageURL']= imageURL;
     let key = await user.addUser(datastore, data);
     console.log("POST /users", key);
     res.json(`{id: ${key.id}}`);

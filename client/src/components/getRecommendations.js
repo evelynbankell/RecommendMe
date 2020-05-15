@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
+import { getUser } from '../redux/reducers/users';
 
 
 const TableBody = ({ recommendation }) => (
@@ -68,7 +69,7 @@ class GetRecommendations extends React.Component {
   };
 
   render() {
-    const {recommendations_current_group, current_group, error, pending} = this.props;
+    const {recommendations_current_group, current_group, error, pending, user} = this.props;
     //console.log("current", current_group);
     //console.log("recommendations_current_group", recommendations_current_group);
 
@@ -96,6 +97,7 @@ const mapStateToProps = state => ({
     recommendations_current_group: getGroupRecommendations(state),
     recommendationsGroup: getRecommendationGroup(state),
     current_group: getGroup(state),
+    user: getUser(state),
     pending: getRecommendationsPending(state)
 })
 

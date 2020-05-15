@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import {fetchGroupRecommendations} from '../redux/fetchRecommendations';
 import { fetchOneGroup, fetchGroups } from '../redux/fetchGroups';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import { getUser } from '../redux/reducers/users';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import GetRecommendations from './getRecommendations';
 import AddRecommendation from './addRecommendation';
@@ -55,7 +56,7 @@ class GetGroups extends React.Component {
 
 
   render() {
-    const {groups, error, pending, current_group} = this.props;
+    const {groups, error, pending, current_group, user} = this.props;
     const rows = this.props.groups;
 
     return (
@@ -76,6 +77,7 @@ class GetGroups extends React.Component {
 const mapStateToProps = state => ({
   error: getGroupsError(state),
   groups: getGroups(state),
+  user: getUser(state),
   current_group: getGroup(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)

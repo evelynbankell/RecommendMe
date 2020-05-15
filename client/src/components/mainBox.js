@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
-
+import { getUser } from '../redux/reducers/users';
 
 class MainBox extends Component{
   constructor(props){
@@ -22,7 +22,7 @@ class MainBox extends Component{
   }
 
   render(){
-      const {groups, error, pending, current_group} = this.props;
+      const {groups, error, pending, current_group, user} = this.props;
     return (
       <React.Fragment>
         <div>
@@ -31,7 +31,7 @@ class MainBox extends Component{
           <div className="Bild">
           <img src= {this.props.current_group.imageUrl} alt="" width="300" />
           </div>
-          {this.props.current_group.id
+          {this.props.current_group.id && this.props.user.active == "true"
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
         </div>
@@ -44,6 +44,7 @@ const mapStateToProps = state => ({
   error: getGroupsError(state),
   groups: getGroups(state),
   current_group: getGroup(state),
+  user: getUser(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)
 })

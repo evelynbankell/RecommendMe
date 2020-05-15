@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchOneGroup, fetchGroups, fetchAddGroup } from '../redux/fetchGroups';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import { getUser } from '../redux/reducers/users';
 
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
@@ -25,7 +26,7 @@ class GroupForm extends React.Component {
 
 
   render() {
-    const {title } = this.props;
+    const {title, user } = this.props;
     return (
       <Form onSubmit={this.onFormSubmit}>
         <small className="pt-4 pb-4">CREATE NEW GROUP:</small>
@@ -77,7 +78,8 @@ class AddGroup extends React.Component {
 
 const mapStateToProps = state => ({
   groups: getGroups(state),
-  current_group: getGroup(state)
+  current_group: getGroup(state),
+  user: getUser(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import GetGroups from './getGroups';
 import AddGroup from './addGroup';
+import LoginModal from './login';
 import { connect } from 'react-redux';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
-
+import { getUser } from '../redux/reducers/users';
 
 class SideBar extends Component{
   constructor(props){
@@ -15,15 +16,19 @@ class SideBar extends Component{
   };
 
   render(){
-    const {groups, current_group} = this.props;
+    const {groups, current_group, user} = this.props;
     return (
       <React.Fragment>
         <div className="createGroupText">
         </div>
-        <div>
-          <AddGroup />
-          <GetGroups/>
+
+        {this.props.user.active == "true" ?
+          <div>
+            <AddGroup />
+            <GetGroups />
+
         </div>
+        : <LoginModal/>}
       </React.Fragment>
     )
   }
@@ -32,6 +37,7 @@ class SideBar extends Component{
 const mapStateToProps = state => ({
   error: getGroupsError(state),
   groups: getGroups(state),
+  user: getUser(state),
   current_group: getGroup(state),
   pending: getGroupsPending(state)
 })
