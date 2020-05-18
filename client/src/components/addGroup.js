@@ -33,7 +33,7 @@ class GroupForm extends React.Component {
         <div className="row form-group pl-3">
 
           <div className="col-12">
-            <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title: </label>
+            <label className="pt-2 pr-2 mb-0" name="title" label="Title">Title: </label>
             <input
             type="string"
             name="title"

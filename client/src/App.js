@@ -3,6 +3,7 @@ import TopBar from './components/topBar';
 import SideBar from './components/sideBar';
 import './App.css';
 import MainBox from './components/mainBox';
+import ChatPanel from './components/chatPanel';
 import LoginModal from './components/login';
 import { fetchAddUser, fetchUpdateUser } from './redux/fetchUsers';
 import { getUser } from './redux/reducers/users';
@@ -30,7 +31,10 @@ class App extends React.Component {
                     <div className="col-3 propertiesSideBar ">
                       <SideBar/>
                     </div>
-                    <div className="col-9">
+                    <div className="col-3">
+                      <ChatPanel/>
+                    </div>
+                    <div className="col-5">
                       <MainBox/>
                     </div>
                 </div>
