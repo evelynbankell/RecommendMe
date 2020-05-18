@@ -27,22 +27,22 @@ const TableBody = ({ recommendation }) => (
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.source ?
+      {recommendation.source != "undefined" ?
         <p className="m-0 p-0"><strong>Where:</strong> {recommendation.source}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.year ?
+      {recommendation.year != "undefined" ?
         <p className="m-0 p-0"><strong>Year:</strong> {recommendation.year}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.who ?
+      {recommendation.who != "undefined" ?
         <p className="m-0 p-0"><strong>Made by who:</strong> {recommendation.who}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.rate ?
+      {recommendation.rate != "undefined" ?
         <p className="m-0 p-0"><strong>Rating:</strong> {recommendation.rate}</p>
       : "" }
     </div>

@@ -82,6 +82,7 @@ class AddRec extends React.Component {
             className="form-control"
             id="category"
             placeholder="Enter a category"
+            required
             list="categories"
             onChange={this.handleChangeCategory}
             />
@@ -105,6 +106,7 @@ class AddRec extends React.Component {
             placeholder="Enter a title"
             value={title}
             onChange={this.handleChangeTitle}
+            required
             />
           </div>
           <div className="col-6">
@@ -117,6 +119,7 @@ class AddRec extends React.Component {
             placeholder="Enter a description"
             value={description}
             onChange={this.handleChangeDescription}
+            required
             />
           </div>
           <div className="col-6">

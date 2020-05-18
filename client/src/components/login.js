@@ -59,7 +59,7 @@ class LoginModal extends React.Component {
                      onSuccess={this.responseGoogleOnSuccess}
                      onFailure={this.responseGoogleOnFailure}
                      cookiePolicy={'single_host_origin'}
-                     isSignedIn={true}
+                     isSignedIn
                    >
                   </GoogleLogin>
                 </div>
