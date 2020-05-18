@@ -22,13 +22,11 @@ class SideBar extends Component{
         <div className="createGroupText">
         </div>
 
-        {this.props.user.active == "true" ?
           <div>
             <AddGroup />
             <GetGroups />
 
         </div>
-        : <LoginModal/>}
       </React.Fragment>
     )
   }

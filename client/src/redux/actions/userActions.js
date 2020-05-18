@@ -12,6 +12,18 @@ export function addUser(user) {
     }
 }
 
+export function updateUser(user) {
+    return {
+        type: ADD_USER,
+        user: {
+          email: user.email,
+          name: user.name,
+          imageURL: user.imageURL,
+          active: user.active
+        }
+    }
+}
+
 export function fetchUserBegin() {
     return {
         type: FETCH_USER_BEGIN

@@ -60,11 +60,8 @@ class AddRec extends React.Component {
   handleChangeImage = event => {
 
     this.imageUrl = event.target.files[0];
-    console.log("HEJ", this.imageUrl);
-
     //his.imageUrl = value.replace("C:\\fakepath\\", "");
     //this.imageUrl.toString();
-    //console.log("HEJ", this.imageUrl);
 
   }
 
@@ -203,7 +200,7 @@ class AddRecommendation extends React.Component {
   handleNewRec = (category, title, description, rate, source, who, year, imageUrl) => {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
-    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl);
+    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl, this.props.user.name);
   };
 
   render() {

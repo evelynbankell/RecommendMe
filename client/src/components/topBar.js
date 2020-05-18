@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../redux/reducers/users';
+import { fetchUpdateUser } from '../redux/fetchUsers';
 
 
 class TopBar extends Component{
@@ -16,9 +17,9 @@ class TopBar extends Component{
 
   logout = () => {
     console.log("logout user:");
-    this.props.user.active = "false";
     console.log("logout user:", this.props.user);
-
+    const {fetchUpdateUser} = this.props;
+    fetchUpdateUser(this.props.user.email, this.props.user.name, "false", this.props.user.imageURL);
   };
 
   render(){
@@ -52,7 +53,11 @@ class TopBar extends Component{
 const mapStateToProps = state => ({
   user: getUser(state)
 })
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchUpdateUser: fetchUpdateUser
+}, dispatch)
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps
 )(TopBar );

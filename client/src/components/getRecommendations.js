@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { fetchRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
@@ -63,15 +61,9 @@ class GetRecommendations extends React.Component {
       super(props);
   }
 
-  handleGetRecommendations = () => {
-    const {fetchRecommendations} = this.props;
-    fetchRecommendations();
-  };
 
   render() {
     const {recommendations_current_group, current_group, error, pending, user} = this.props;
-    //console.log("current", current_group);
-    //console.log("recommendations_current_group", recommendations_current_group);
 
     return (
         <React.Fragment>
@@ -101,12 +93,8 @@ const mapStateToProps = state => ({
     pending: getRecommendationsPending(state)
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchRecommendations: fetchRecommendations
-}, dispatch)
 
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(GetRecommendations );
