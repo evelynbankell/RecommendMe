@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { fetchRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
@@ -29,22 +27,22 @@ const TableBody = ({ recommendation }) => (
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.source ?
+      {recommendation.source != "undefined" ?
         <p className="m-0 p-0"><strong>Where:</strong> {recommendation.source}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.year ?
+      {recommendation.year != "undefined" ?
         <p className="m-0 p-0"><strong>Year:</strong> {recommendation.year}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.who ?
+      {recommendation.who != "undefined" ?
         <p className="m-0 p-0"><strong>Made by who:</strong> {recommendation.who}</p>
       : "" }
     </div>
     <div className="col-12">
-      {recommendation.rate ?
+      {recommendation.rate != "undefined" ?
         <p className="m-0 p-0"><strong>Rating:</strong> {recommendation.rate}</p>
       : "" }
     </div>
@@ -64,20 +62,14 @@ class GetRecommendations extends React.Component {
       super(props);
   }
 
-  handleGetRecommendations = () => {
-    const {fetchRecommendations} = this.props;
-    fetchRecommendations();
-  };
 
   render() {
     const {recommendations_current_group, current_group, error, pending, user} = this.props;
-    //console.log("current", current_group);
-    //console.log("recommendations_current_group", recommendations_current_group);
 
     return (
         <React.Fragment>
           <div className="">
-            <div className="container">
+            <div className="container float-left">
                 {this.props.current_group.id
                   ? recommendations_current_group.map((recommendation, index) => {
                     if (this.props.current_group.id === recommendation.groupId)
@@ -101,12 +93,8 @@ const mapStateToProps = state => ({
     pending: getRecommendationsPending(state)
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchRecommendations: fetchRecommendations
-}, dispatch)
 
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(GetRecommendations );

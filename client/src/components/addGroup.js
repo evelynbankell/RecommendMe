@@ -16,24 +16,26 @@ class GroupForm extends React.Component {
   }
 
    onFormSubmit(val) {
-    this.props.handleNewGroup(this.title);
+    this.props.handleNewGroup(this.title, this.imageURL);
   }
 
   handleChangeTitle = event => {
     const { name, value } = event.target;
     this.title = value;
   }
-
+  handleChangeImage = event => {
+    this.imageURL = event.target.files[0];
+  }
 
   render() {
-    const {title, user } = this.props;
+    const {title, user, imageURL } = this.props;
     return (
       <Form onSubmit={this.onFormSubmit}>
-        <small className="pt-4 pb-4">CREATE NEW GROUP:</small>
+        <small className="m-4" >CREATE NEW GROUP:</small>
         <div className="row form-group pl-3">
 
           <div className="col-12">
-            <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title: </label>
+            <label className="pt-2 pr-2 mb-0" name="title" label="Title">Title: </label>
             <input
             type="string"
             name="title"
@@ -42,6 +44,19 @@ class GroupForm extends React.Component {
             placeholder="Enter a title"
             value={title}
             onChange={this.handleChangeTitle}
+            required
+            />
+          </div>
+          <div className="col-12">
+            <label className="pt-2 pr-2 mb-0" name="imageURL" type="text" label="imageURL">Add image: </label>
+            <input
+            type="file"
+            name="imageURL"
+            id="imageURL"
+            className="form-control"
+            accept="image/*"
+            value={imageURL}
+            onChange={this.handleChangeImage}
             />
           </div>
           <div className="col-12 pt-2">
@@ -59,17 +74,18 @@ class AddGroup extends React.Component {
       super(props);
   }
 
-  handleNewGroup = (title) => {
+  handleNewGroup = (title, imageURL) => {
     const {fetchAddGroup} = this.props;
-    fetchAddGroup(title);
+    fetchAddGroup(title, this.props.user.name, imageURL);
   };
 
   render() {
+    const {user} = this.props;
     return (
         <React.Fragment>
-          <div>
-            <GroupForm handleNewGroup={(title) =>
-              {this.handleNewGroup(title)}}/>
+          <div className="p-3">
+            <GroupForm handleNewGroup={(title, imageURL) =>
+              {this.handleNewGroup(title, imageURL)}}/>
           </div>
         </React.Fragment>
     )

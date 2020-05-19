@@ -1,5 +1,5 @@
 import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS,
-  ADD_GROUP, FETCH_GROUPS_FAILURE } from "../actionTypes";
+  ADD_GROUP, FETCH_GROUPS_FAILURE, SET_SHOW_COMPONENT, SET_NOT_SHOW_COMPONENT } from "../actionTypes";
 
 
 export function addGroup(group) {
@@ -7,6 +7,18 @@ export function addGroup(group) {
         type: ADD_GROUP,
         groups: group
     }
+}
+
+export function setShowComponent() {
+  return {
+    type: SET_SHOW_COMPONENT
+  }
+}
+
+export function hideShowComponent() {
+  return {
+    type: SET_NOT_SHOW_COMPONENT
+  }
 }
 
 export function fetchGroupsBegin() {

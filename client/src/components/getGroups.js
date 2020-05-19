@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import {fetchGroupRecommendations} from '../redux/fetchRecommendations';
 import { fetchOneGroup, fetchGroups } from '../redux/fetchGroups';
-import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import { hideShowComponent } from '../redux/actions/groupActions';
+import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import GetRecommendations from './getRecommendations';
@@ -18,12 +19,13 @@ class ShowGroups extends React.Component {
   }
 
   handleClick = (group) => {
+
     this.props.handleGroup(group);
   };
 
   render() {
     return (
-      <p onClick={() => this.handleClick(this.props.value)}>
+      <p className="group-title" onClick={() => this.handleClick(this.props.value)}>
         {this.props.value.title}
       </p>
     )
@@ -43,7 +45,8 @@ class GetGroups extends React.Component {
 
   handleGroup = (group) => {
       const current_group = group;
-      const {fetchOneGroup} = this.props;
+      const {fetchOneGroup, hideShowComponent} = this.props;
+      hideShowComponent();
       fetchOneGroup(current_group.id);
       const {fetchGroupRecommendations} = this.props;
       fetchGroupRecommendations(current_group.id);
@@ -56,13 +59,13 @@ class GetGroups extends React.Component {
 
 
   render() {
-    const {groups, error, pending, current_group, user} = this.props;
+    const {groups, error, pending, current_group, user, show_component} = this.props;
     const rows = this.props.groups;
 
     return (
       <React.Fragment>
-        <div className= "groupTextLeftSideBar">
-          <ul>
+        <div className= "">
+          <ul className="p-0">
             {rows.map((row) =>
                 <ShowGroups key={row.id} value={row} handleGroup={(group) => {this.handleGroup(group)}}/>
               )}
@@ -80,13 +83,15 @@ const mapStateToProps = state => ({
   user: getUser(state),
   current_group: getGroup(state),
   recommendations: getRecommendations(state),
+  show_component: showComponent(state),
   pending: getGroupsPending(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchGroups: fetchGroups,
     fetchOneGroup: fetchOneGroup,
-    fetchGroupRecommendations: fetchGroupRecommendations
+    fetchGroupRecommendations: fetchGroupRecommendations,
+    hideShowComponent: hideShowComponent
 }, dispatch)
 
 

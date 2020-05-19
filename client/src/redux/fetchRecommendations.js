@@ -21,12 +21,14 @@ export function fetchRecommendations() {
     }
 }
 
+
 export function fetchGroupRecommendations(id) {
     return dispatch => {
         dispatch(fetchRecommendationsBegin());
         fetch('http://localhost:8080/groups/' + parseInt(id) + '/recommendations')
         .then(res => res.json())
         .then(res => {
+            const sorted_result = res.sort((a, b) => (a.createdDate > b.createdDate) ? -1 : 1);
             if(res.error) {
                 throw(res.error);
             }
@@ -39,7 +41,7 @@ export function fetchGroupRecommendations(id) {
     }
 }
 
-export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl) {
+export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl, user) {
     const today = new Date();
     const date = today.getFullYear()+'-'+('0' +(today.getMonth()+1)).slice(-2) +'-'+('0' +(today.getDate())).slice(-2);
     const time = ('0' +(today.getHours())).slice(-2) + ":" + ('0' +(today.getMinutes())).slice(-2);
@@ -47,6 +49,7 @@ export function fetchAddRecommendation(id, category, title, description, rate, s
 
     const formData = new FormData();
     formData.set('category', category);
+    formData.set('createdBy', user);
     formData.set('title', title);
     formData.set('description', description);
     formData.set('rate', rate);

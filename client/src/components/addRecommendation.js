@@ -60,11 +60,8 @@ class AddRec extends React.Component {
   handleChangeImage = event => {
 
     this.imageUrl = event.target.files[0];
-    console.log("HEJ", this.imageUrl);
-
     //his.imageUrl = value.replace("C:\\fakepath\\", "");
     //this.imageUrl.toString();
-    //console.log("HEJ", this.imageUrl);
 
   }
 
@@ -85,6 +82,7 @@ class AddRec extends React.Component {
             className="form-control"
             id="category"
             placeholder="Enter a category"
+            required
             list="categories"
             onChange={this.handleChangeCategory}
             />
@@ -108,6 +106,7 @@ class AddRec extends React.Component {
             placeholder="Enter a title"
             value={title}
             onChange={this.handleChangeTitle}
+            required
             />
           </div>
           <div className="col-6">
@@ -120,6 +119,7 @@ class AddRec extends React.Component {
             placeholder="Enter a description"
             value={description}
             onChange={this.handleChangeDescription}
+            required
             />
           </div>
           <div className="col-6">
@@ -203,14 +203,14 @@ class AddRecommendation extends React.Component {
   handleNewRec = (category, title, description, rate, source, who, year, imageUrl) => {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
-    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl);
+    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl, this.props.user.name);
   };
 
   render() {
     const {recommendations, current_group, error, pending, user} = this.props;
     return (
         <React.Fragment>
-          <div className="text-left mt-2">
+          <div className="mt-2">
             {this.props.current_group.id ?
 
                 <AddRec handleNewRec={(category, title, description, rate, source, who, year, imageUrl) =>

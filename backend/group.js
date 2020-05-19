@@ -18,7 +18,7 @@ module.exports = {
 function Group(id, title, imageURL, createdDate, createdBy) {
     this.id = id;
     this.title = title;
-    this.imageUrl = imageURL;
+    this.imageURL = imageURL;
     this.createdDate = createdDate;
     this.createdBy = createdBy;
 }

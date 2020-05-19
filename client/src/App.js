@@ -3,7 +3,9 @@ import TopBar from './components/topBar';
 import SideBar from './components/sideBar';
 import './App.css';
 import MainBox from './components/mainBox';
+import ChatPanel from './components/chatPanel';
 import LoginModal from './components/login';
+import { fetchAddUser, fetchUpdateUser } from './redux/fetchUsers';
 import { getUser } from './redux/reducers/users';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,28 +18,29 @@ class App extends React.Component {
       super(props);
   }
 
-
-
   render() {
     const {user} = this.props;
+
     return (
       <div className="App">
-        { this.props.user.active == "true" || this.props.user.length != 0 ?
+        <LoginModal/>
           <div>
               <div className="colorTopBar">
               <TopBar/>
               </div>
                 <div className="row">
-                    <div className="col-3 propertiesSideBar ">
+                    <div className="col-2 propertiesSideBar ">
                       <SideBar/>
                     </div>
-                    <div className="col-9">
+                    <div className="col-3">
+                      <ChatPanel/>
+                    </div>
+                    <div className="col-6">
                       <MainBox/>
                     </div>
                 </div>
 
           </div>
-        : <LoginModal/>}
       </div>
     )
   }
@@ -46,7 +49,12 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   user: getUser(state)
 })
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchAddUser: fetchAddUser,
+  fetchUpdateUser: fetchUpdateUser
+}, dispatch)
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps
 )(App );

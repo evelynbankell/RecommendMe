@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
-import { fetchUser, fetchAddUser } from '../redux/fetchUsers';
+import { fetchUser, fetchAddUser, fetchUpdateUser } from '../redux/fetchUsers';
 import { getUser } from '../redux/reducers/users';
 
 import GoogleLogin from 'react-google-login';
@@ -17,17 +17,14 @@ class LoginModal extends React.Component {
     this.responseGoogleOnFailure = this.responseGoogleOnFailure.bind(this);
   }
 
-
-  responseGoogleOnSuccess (response) {
+  async responseGoogleOnSuccess (response) {
     console.log("Google LogIn", response.profileObj);
     const {fetchUser} = this.props;
-    fetchUser(response.profileObj.email);
+    await fetchUser(response.profileObj.email);
 
-    if (this.props.user.length!=0) {
-      console.log("user found: ", this.props.user);
-    } else {
-      console.log("user  not found: ");
-      const {fetchAddUser} = this.props;
+    if(this.props.user == null) {
+      console.log("user not found: ", response.profileObj.email);
+       const {fetchAddUser} = this.props;
       fetchAddUser(response.profileObj.email, response.profileObj.name, response.profileObj.imageUrl);
     }
   }
@@ -40,9 +37,13 @@ class LoginModal extends React.Component {
     const {error, pending, user} = this.props;
     console.log("USER", user);
 
+    if (this.props.user.active == "false") {
+      this.props.user.active = "true";
+    }
 
     return (
         <div>
+        { this.props.user.length == 0 ||  this.props.user.email == undefined ?
         <div className="modal display-block">
           <section className="modal-main">
             <div className="card titleSignIn">
@@ -55,7 +56,7 @@ class LoginModal extends React.Component {
                      onSuccess={this.responseGoogleOnSuccess}
                      onFailure={this.responseGoogleOnFailure}
                      cookiePolicy={'single_host_origin'}
-                     isSignedIn={true}
+                     isSignedIn
                    >
                   </GoogleLogin>
                 </div>
@@ -63,6 +64,7 @@ class LoginModal extends React.Component {
             </div>
           </section>
           </div>
+          : ""}
         </div>
 
 
@@ -77,7 +79,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchUser: fetchUser,
-  fetchAddUser: fetchAddUser
+  fetchAddUser: fetchAddUser,
+  fetchUpdateUser: fetchUpdateUser
 }, dispatch)
 
 

@@ -106,9 +106,9 @@ app.post('/groups', async (req, res, next) => {
   let imageURL = '';
   try {
     if(req.files) {
-        let groupPhoto = req.files.groupPhoto;
-        let unique_filename = uniqueFilename('') + path.extname(groupPhoto.name);
-        groupPhoto.mv('./uploads/' + unique_filename);
+        imageURL = req.files.imageURL;
+        let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
+        imageURL.mv('./uploads/' + unique_filename);
         imageURL = await uploadFile('./uploads/', unique_filename);
     }
   } catch (err) {
@@ -146,29 +146,12 @@ app.get('/groups/:id/recommendations', async (req, res, next) => {
   }
 });
 
-/* FIXA
-app.get('/groups/:groupId/recommendations/:reId', async (req, res, next) => {
-  try {
-    const groupId = req.params.groupId;
-    const reId = req.params.reId;
-
-    let recommendations = await recommendation.getRecommendation(datastore, groupId, reId);
-    console.log("GET /group/:groupId/recommendations/:reId", recommendations);
-
-    res.json(recommendations);
-  } catch (error) {
-    next(error);
-  }
-});
-**/
-
 // post a recommendation in a group
 app.post('/groups/:id/recommendations', async (req, res, next) => {
   let imageURL = '';
-  console.log('TEST', req.files);
+  console.log('files', req.files);
   try {
     if(req.files) {
-        console.log('TEST');
         imageURL = req.files.imageUrl;
         let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
         imageURL.mv('./uploads/' + unique_filename);
@@ -219,6 +202,24 @@ app.get('/users/:email', async (req, res, next) => {
     console.log("GET /users/:email ", users);
     if (users)
       res.json(users);
+    else
+      return res.sendStatus(404);
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
+app.put('/users/:email', async (req, res, next) => {
+  console.log("PUT /users/:email ", req.params.email)
+  try {
+    const email = req.params.email;
+    let active = req.body.active;
+    let imageURL = req.body.imageURL;
+    let key = await user.updateUser(datastore, email, active, imageURL);
+    console.log("PUT /users/:email ", key);
+    if (key)
+      res.json(key);
     else
       return res.sendStatus(404);
   } catch (error) {

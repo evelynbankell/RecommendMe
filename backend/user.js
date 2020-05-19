@@ -78,17 +78,15 @@ module.exports = {
 
  async function updateUser(datastore, email, active, imageURL) {
    console.log("Update user: ", email);
-   const key = datastore.key('User', datastore.string(email));
+   const key = datastore.key(['User', email]);
 
-   let data = {};
-   if (imageUrl != null)
-       data['imageUrl'] = imageUrl;
 
    try {
        await datastore.merge({
            key: key,
            data: {
-             active: active
+             active: active,
+             imageURL: imageURL
            }
        });
        console.log(`User ${key.name} updated successfully`);
