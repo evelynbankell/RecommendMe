@@ -33,7 +33,6 @@ class TopBar extends Component{
               <Nav className="mr-auto">
               </Nav>
               <Navbar.Brand href="#installningar">Settings</Navbar.Brand>
-              <Navbar.Brand href="#logga-in">Log in</Navbar.Brand>
             </Navbar.Collapse>
 
             <GoogleLogout

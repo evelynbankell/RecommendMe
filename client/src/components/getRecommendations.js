@@ -10,8 +10,8 @@ import { getUser } from '../redux/reducers/users';
 
 
 const TableBody = ({ recommendation }) => (
+  <ul>
   <div className="row text-center border-bottom p-3">
-
     <div className="col-12">
       {recommendation.createdDate ?
         <small>Date: {recommendation.createdDate}</small>
@@ -50,10 +50,11 @@ const TableBody = ({ recommendation }) => (
     </div>
     <div className="col-12">
       {recommendation.imageUrl ?
-        <p className="m-0 p-0"><strong>Image:</strong> {recommendation.imageUrl}</p>
+        <p className="m-0 p-0"><strong>Image:</strong> <img src= {recommendation.imageUrl} alt="" width="300" /> </p>
       : "" }
     </div>
   </div>
+  </ul>
 
 );
 
@@ -85,7 +86,6 @@ class GetRecommendations extends React.Component {
                   : "No recommendations"}
               </div>
             </div>
-
         </React.Fragment>
     )
   }
