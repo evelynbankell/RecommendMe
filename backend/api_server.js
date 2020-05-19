@@ -106,9 +106,9 @@ app.post('/groups', async (req, res, next) => {
   let imageURL = '';
   try {
     if(req.files) {
-        let groupPhoto = req.files.groupPhoto;
-        let unique_filename = uniqueFilename('') + path.extname(groupPhoto.name);
-        groupPhoto.mv('./uploads/' + unique_filename);
+        imageURL = req.files.imageURL;
+        let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
+        imageURL.mv('./uploads/' + unique_filename);
         imageURL = await uploadFile('./uploads/', unique_filename);
     }
   } catch (err) {
@@ -145,22 +145,6 @@ app.get('/groups/:id/recommendations', async (req, res, next) => {
     next(error);
   }
 });
-
-/* FIXA
-app.get('/groups/:groupId/recommendations/:reId', async (req, res, next) => {
-  try {
-    const groupId = req.params.groupId;
-    const reId = req.params.reId;
-
-    let recommendations = await recommendation.getRecommendation(datastore, groupId, reId);
-    console.log("GET /group/:groupId/recommendations/:reId", recommendations);
-
-    res.json(recommendations);
-  } catch (error) {
-    next(error);
-  }
-});
-**/
 
 // post a recommendation in a group
 app.post('/groups/:id/recommendations', async (req, res, next) => {

@@ -68,7 +68,7 @@ class GetRecommendations extends React.Component {
     return (
         <React.Fragment>
           <div className="">
-            <div className="container">
+            <div className="container float-left">
                 {this.props.current_group.id
                   ? recommendations_current_group.map((recommendation, index) => {
                     if (this.props.current_group.id === recommendation.groupId)

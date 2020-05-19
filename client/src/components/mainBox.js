@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Navbar, Button, Nav} from 'react-bootstrap';
 import GetGroups from './getGroups';
+import AddGroup from './addGroup';
 import GetRecommendations from './getRecommendations';
 import AddRecommendation from './addRecommendation';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
-import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
+import Popup from 'react-popup';
+import {Form, FormGroup, Label, Input } from 'react-bootstrap';
 
 
 class MainBox extends Component{
@@ -23,9 +26,13 @@ class MainBox extends Component{
   }
 
   render(){
-      const {groups, error, pending, current_group, user} = this.props;
+      const {groups, error, pending, current_group, user, show_component} = this.props;
+
     return (
       <React.Fragment>
+        {this.props.show_component ?
+        <AddGroup/>
+        :
         <div>
         <h1 className="pt-2"> {this.props.current_group.title} </h1>
           <AddRecommendation current_group={this.props.current_group}/>
@@ -36,7 +43,8 @@ class MainBox extends Component{
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
         </div>
-    </React.Fragment>
+        }
+      </React.Fragment>
     )
   }
 }
@@ -45,6 +53,7 @@ const mapStateToProps = state => ({
   error: getGroupsError(state),
   groups: getGroups(state),
   current_group: getGroup(state),
+  show_component: showComponent(state),
   user: getUser(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)

@@ -39,10 +39,7 @@ class LoginModal extends React.Component {
 
     if (this.props.user.active == "false") {
       this.props.user.active = "true";
-      //const {fetchUpdateUser} = this.props;
-      //fetchUpdateUser(this.props.user.email, this.props.user.name, "true", this.props.user.imageUrl)
     }
-
 
     return (
         <div>

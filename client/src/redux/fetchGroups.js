@@ -39,19 +39,31 @@ export function fetchOneGroup(id) {
     }
 }
 
-export function fetchAddGroup(title) {
-    const createdDate = new Date();
+export function fetchAddGroup(title, createdBy, imageURL) {
+    const today = new Date();
+    const date = today.getFullYear()+'-'+('0' +(today.getMonth()+1)).slice(-2) +'-'+('0' +(today.getDate())).slice(-2);
+    const time = ('0' +(today.getHours())).slice(-2) + ":" + ('0' +(today.getMinutes())).slice(-2);
+    var createdDate = date+' '+time;
+
+    const formData = new FormData();
+    formData.set('title', title);
+    formData.set('createdBy', createdBy);
+    formData.set('createdDate', createdDate);
+    formData.append('imageURL', imageURL);
 
     return dispatch => {
 
-        const res = axios.post('http://localhost:8080/groups',{
-            title,
-            createdDate
-          },
-        )
-        .then((res) => {
-          dispatch(addGroup(res));
-          return res;
+        const res = axios({
+          method: 'post',
+          url: 'http://localhost:8080/groups/',
+          data: formData
         })
-      }
+        .then((res) => {
+            dispatch(addGroup(res));
+            return res;
+          })
+          .catch(error => {
+              dispatch(fetchGroupsFailure(error));
+          })
+    }
 }

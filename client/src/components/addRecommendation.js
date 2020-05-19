@@ -210,7 +210,7 @@ class AddRecommendation extends React.Component {
     const {recommendations, current_group, error, pending, user} = this.props;
     return (
         <React.Fragment>
-          <div className="text-left mt-2">
+          <div className="mt-2">
             {this.props.current_group.id ?
 
                 <AddRec handleNewRec={(category, title, description, rate, source, who, year, imageUrl) =>

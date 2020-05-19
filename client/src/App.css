@@ -192,19 +192,13 @@ textarea.has-error:active {
 .createGroupText:hover{
   color:black;
 }
-.groupTextLeftSideBar{
-  padding-top: 10px;
-  cursor: pointer;
-  color: #4056A1;
-}
 
 .group-title:hover{
   color: #330066;
+  cursor: pointer;
 }
 
-.mr-auto{
-    color: rgb(8, 163, 129);
-}
+
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);

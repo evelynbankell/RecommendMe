@@ -28,13 +28,13 @@ class App extends React.Component {
               <TopBar/>
               </div>
                 <div className="row">
-                    <div className="col-3 propertiesSideBar ">
+                    <div className="col-2 propertiesSideBar ">
                       <SideBar/>
                     </div>
                     <div className="col-3">
                       <ChatPanel/>
                     </div>
-                    <div className="col-5">
+                    <div className="col-6">
                       <MainBox/>
                     </div>
                 </div>
