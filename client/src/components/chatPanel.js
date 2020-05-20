@@ -1,45 +1,64 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Navbar, Button, Nav} from 'react-bootstrap';
-import GetGroups from './getGroups';
-import GetRecommendations from './getRecommendations';
-import AddRecommendation from './addRecommendation';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchAddChatPost, fetchGroupChatPosts} from '../redux/fetchChatPosts';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import {getChatPosts} from '../redux/reducers/chatPosts';
 import { getUser } from '../redux/reducers/users';
 
+const TableBody = ({ chat_post }) => (
+  <div className="row float-left bubble p-1 m-2">
+    <div className="col-12">
+      {chat_post.createdDate ?
+        <small>{chat_post.createdDate}</small>
+      : ""}
+    </div>
+    <div className="col-12">
+      <p className="m-0 p-0 small"> {chat_post.createdBy}</p>
+    </div>
+    <div className="col-12">
+      <strong className="m-0 p-0"> {chat_post.content}</strong>
+    </div>
+  </div>
+
+);
 
 class Footer extends Component {
   constructor(props) {
     super(props);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  handleChange = event => {
-    console.log("in handleChange");
-  }
+  onFormSubmit(val) {
+   this.props.handleNewChat(this.content);
+ }
 
-  onFormSubmit = (event) => {
-    console.log("in submit: ");
-  }
+ handleChangeContent = event => {
+   const { name, value } = event.target;
+   this.content = value;
+ }
 
   render() {
+      const { content } = this.props;
       return (
           <form onSubmit={this.onFormSubmit}>
-            <div className="col-md-12">
+            <div>
               <div className="row">
-                <div className="col-md-8">
+                <div className="col-12">
                     <input
                         className = "messageStyle"
                         type="text"
                         name="content"
                         id="content"
                         placeholder="Write a message"
-                        onChange={this.handleChange} />
+                        value={content}
+                        onChange={this.handleChangeContent}
+                        required />
                 </div>
-                <div className="col-md-4">
+                <div className="col-12">
                   <button className="btn btn-primary" type="submit">
                       <small>SEND</small>
                   </button>
@@ -58,29 +77,43 @@ class ChatPanel extends Component{
     super(props)
   }
 
-  handleNewPostClick = (content) => {
-  console.log("in Click ");
-}
+  componentDidMount() {
+      const {fetchGroupChatPosts} = this.props;
+      fetchGroupChatPosts(this.props.current_group.id);
+  }
 
 
+
+  handleNewChat = (content) => {
+    const new_id = this.props.current_group.id.toString();
+    const {fetchAddChatPost} = this.props;
+    fetchAddChatPost(new_id, content, this.props.user.name);
+    //fetchOneGroup(new_id);
+    //socket.emit('NewPost', new_id);
+  };
 
   render(){
-      const {groups, error, pending, current_group, user} = this.props;
+      const {groups, error, pending, current_group, user, chat_posts} = this.props;
     return (
       <React.Fragment>
+        {this.props.current_group.id ?
         <div className="chatBox m-2">
           <div className="mt-2 pt-2">
             <p className="lead">GROUP CHAT</p>
           </div>
           <div className="table-wrapper-scroll-y posts-scrollbar">
-            <table className="table posts-in-channel">
-            </table>
+          <div className="container posts-in-channel">
+              {this.props.current_group.id
+                ? this.props.chat_posts.map((chat_post, index) => {
+                    return <TableBody key={`chat_post-${chat_post.id}`} chat_post={chat_post} />;
+              })  : "No posts"}
+            </div>
           </div>
           <div className="footer m-2 p-3">
-            <Footer handleNewPostClick={(content) => {this.handleNewPostClick(content)}} />
+            <Footer handleNewChat={(content) => {this.handleNewChat(content)}} />
           </div>
         </div>
-
+        : "" }
     </React.Fragment>
     )
   }
@@ -91,11 +124,14 @@ const mapStateToProps = state => ({
   groups: getGroups(state),
   current_group: getGroup(state),
   user: getUser(state),
+  chat_posts: getChatPosts(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchGroupChatPosts: fetchGroupChatPosts,
+  fetchAddChatPost: fetchAddChatPost
 }, dispatch)
 
 

@@ -260,12 +260,12 @@ app.post('/users', async (req, res, next) => {
 });
 
 // REST API chatPost
-app.get('/group/:id/chatPosts', async (req, res, next) => {
+app.get('/groups/:id/chatposts', async (req, res, next) => {
   try {
     const id = req.params.id;
 
     let chatPosts = await post.getChatPosts(datastore, id);
-    console.log("GET /group/:id/chatPosts", chatPosts);
+    console.log("GET /groups/:id/chatposts", chatPosts);
 
     res.json(chatPosts);
   } catch (error) {
@@ -274,13 +274,13 @@ app.get('/group/:id/chatPosts', async (req, res, next) => {
 });
 
 
-app.post('/group/:id/chatPost', async (req, res, next) => {
+app.post('/groups/:id/chatpost', async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = req.body;
 
     let key = await post.insertChatPost(datastore, id, data);
-    console.log("POST /group/:id/chatPost", key, data);
+    console.log("POST /groups/:id/chatpost", key, data);
 
     res.json(key); //`{key: ${key}}`
   } catch (error) {

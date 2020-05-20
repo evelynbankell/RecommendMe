@@ -32,11 +32,7 @@ class TopBar extends Component{
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
               </Nav>
-<<<<<<< HEAD
-              <Navbar.Brand href="#installningar">Settings</Navbar.Brand>
-=======
               <Navbar.Brand href="#installningar" className="text-white">Settings</Navbar.Brand>
->>>>>>> fb207463701a24302297bc5b671431a33e25cefb
             </Navbar.Collapse>
 
             <GoogleLogout

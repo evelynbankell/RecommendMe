@@ -3,23 +3,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store from './redux/store';
 //provider -> makes the store available
 import { Provider } from 'react-redux';
-//import { recomendationAdded } from '.redux/actions'
 import * as serviceWorker from './serviceWorker';
-
-/*
-const unsubscribe = store.subscribe(() => {
-  console.log("store changed", store.getState());
-})
-
-store.dispatch(recomendationAdded("Test"));
-*/
+import { PersistGate } from 'redux-persist/integration/react';
+import configureStore from './redux/store';
+import {persistStore, autoRehydrate} from 'redux-persist'
+import {store, persistor} from './redux/store';
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>,
   document.getElementById('root')
 );

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import {fetchGroupRecommendations} from '../redux/fetchRecommendations';
 import { fetchOneGroup, fetchGroups } from '../redux/fetchGroups';
+import { fetchGroupChatPosts } from '../redux/fetchChatPosts';
 import { hideShowComponent } from '../redux/actions/groupActions';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
@@ -50,6 +51,8 @@ class GetGroups extends React.Component {
       fetchOneGroup(current_group.id);
       const {fetchGroupRecommendations} = this.props;
       fetchGroupRecommendations(current_group.id);
+      const {fetchGroupChatPosts} = this.props;
+      fetchGroupChatPosts(current_group.id);
   };
 
   componentDidMount() {
@@ -91,7 +94,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     fetchGroups: fetchGroups,
     fetchOneGroup: fetchOneGroup,
     fetchGroupRecommendations: fetchGroupRecommendations,
-    hideShowComponent: hideShowComponent
+    hideShowComponent: hideShowComponent,
+    fetchGroupChatPosts: fetchGroupChatPosts
 }, dispatch)
 
 

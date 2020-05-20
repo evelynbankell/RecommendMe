@@ -14,6 +14,8 @@ import { getUser } from '../redux/reducers/users';
 import Popup from 'react-popup';
 import {Form, FormGroup, Label, Input } from 'react-bootstrap';
 
+import ReactShadowScroll from 'react-shadow-scroll'; //npm i react-shadow-scroll
+
 class MainBox extends Component{
   constructor(props){
     super(props)
@@ -24,6 +26,8 @@ class MainBox extends Component{
       fetchGroupRecommendations(this.props.current_group.id);
   }
 
+
+
   render(){
       const {groups, error, pending, current_group, user, show_component} = this.props;
 
@@ -32,15 +36,21 @@ class MainBox extends Component{
         {this.props.show_component ?
         <AddGroup/>
         :
-        <div>
+        <div className = "MainBox">
         <h1 className="pt-2"> {this.props.current_group.title} </h1>
+          <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
+          <ul>
           <AddRecommendation current_group={this.props.current_group}/>
+          <div>
           <div className="Bild">
           <img src= {this.props.current_group.imageUrl} alt="" width="300" />
           </div>
           {this.props.current_group.id
             ? <GetRecommendations current_group={this.props.current_group}/>
             : "No recommendations"}
+            </div>
+            </ul>
+          </ReactShadowScroll>
         </div>
         }
       </React.Fragment>

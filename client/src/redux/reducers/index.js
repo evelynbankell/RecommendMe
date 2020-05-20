@@ -1,9 +1,14 @@
 import { combineReducers } from "redux";
-import recommendations from "./recommendations";
-import groups from "./groups";
-import user from "./users";
+import recommendationsReducer from "./recommendations";
+import groupsReducer from "./groups";
+import userReducer from "./users";
+import chatPostsReducer from "./chatPosts";
 
+const rootReducer = combineReducers({
+  recommendations: recommendationsReducer,
+  groups: groupsReducer,
+  user: userReducer,
+  chat_posts: chatPostsReducer
+});
 
-const rootReducers = combineReducers({ recommendations, groups, user });
-
-export default rootReducers;
+export default rootReducer;

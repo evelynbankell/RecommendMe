@@ -26,6 +26,9 @@
   color: rgb(112, 76, 182);
 }
 
+.MainBox{
+    max-height: 40px;
+}
 
 /**
  * Buttons
@@ -182,7 +185,7 @@ textarea.has-error:active {
   border-color: #4056A1;
   font-family:sans-serif;
   font-weight: bold;
-  height: 1000px;
+  height: auto;
 }
 
 .createGroupText:hover{
@@ -285,4 +288,9 @@ overflow: auto;
 .table-wrapper-scroll-y {
   display: block;
   position: static;
+}
+
+.bubble {
+  background-color: white;
+  border-radius: 25px;
 }

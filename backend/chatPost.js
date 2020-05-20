@@ -48,12 +48,18 @@ async function getChatPosts(datastore, id) {
  async function insertChatPost(datastore, id, chatPost) {
    const key = datastore.key(['Group', datastore.int(id), 'ChatPost']);
 
+   const task = {
+     content: chatPost.content,
+     createdBy: chatPost.createdBy,
+     createdDate: chatPost.createdDate
+   };
+
    console.log(key);
    console.log(`ChatPost ${chatPost}`);
    try {
      await datastore.save({
        key: key,
-       data: chatPost
+       data: task
      });
      console.log(`ChatPost ${key.id} created successfully`);
      return key.id;
