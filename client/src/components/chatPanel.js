@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { fetchAddChatPost, fetchGroupChatPosts} from '../redux/fetchChatPosts';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
-import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import {getChatPosts} from '../redux/reducers/chatPosts';
 import { getUser } from '../redux/reducers/users';
 // RUN npm i socket.io-client
@@ -98,7 +98,7 @@ class ChatPanel extends Component{
   };
 
   render(){
-      const {groups, error, pending, current_group, user, chat_posts} = this.props;
+      const {groups, error, pending, current_group, user, chat_posts, show_component} = this.props;
       socket = socketIOClient(URL_LOCAL);
 
       socket.on("NewPost", data => {
@@ -111,7 +111,7 @@ class ChatPanel extends Component{
 
     return (
       <React.Fragment>
-        {this.props.current_group.id ?
+        {this.props.current_group.id && this.props.show_component == false ?
         <div className="chatBox m-2">
           <div className="mt-2 pt-2">
             <p className="lead">GROUP CHAT</p>
@@ -139,6 +139,7 @@ const mapStateToProps = state => ({
   groups: getGroups(state),
   current_group: getGroup(state),
   user: getUser(state),
+  show_component: showComponent(state),
   chat_posts: getChatPosts(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)
