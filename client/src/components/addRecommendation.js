@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAddRecommendation } from '../redux/fetchRecommendations';
+import { fetchAddRecommendation, fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations, getRecommendationsError, getRecommendationsPending} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
-
-
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
 
 class AddRec extends React.Component {
   constructor(props) {
@@ -204,10 +206,22 @@ class AddRecommendation extends React.Component {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
     fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl, this.props.user.name);
+    socket.emit('NewRecommendation', new_id);
   };
 
   render() {
     const {recommendations, current_group, error, pending, user} = this.props;
+
+    socket = socketIOClient(URL_LOCAL);
+
+    socket.on("NewRecommendation", data => {
+      console.log("SocketIO event for new rec created - reloading rec if in active group:", data);
+      if(this.props.current_group.id == data) {
+          const {fetchGroupRecommendations} = this.props;
+          fetchGroupRecommendations(data);
+      }
+    });
+
     return (
         <React.Fragment>
           <div className="mt-2">
@@ -232,7 +246,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchAddRecommendation: fetchAddRecommendation
+    fetchAddRecommendation: fetchAddRecommendation,
+    fetchGroupRecommendations: fetchGroupRecommendations
 }, dispatch)
 
 
