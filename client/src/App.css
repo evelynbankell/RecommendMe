@@ -212,10 +212,6 @@ textarea.has-error:active {
 
 
 
-
-
-
-
 .modal {
   position: fixed;
   top: 0;
@@ -293,4 +289,13 @@ overflow: auto;
 .bubble {
   background-color: white;
   border-radius: 25px;
+}
+
+.delete-group:hover{
+  color: #330066;
+  cursor: pointer;
+}
+
+.delete-group{
+  color: #0250bc;
 }

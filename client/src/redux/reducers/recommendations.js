@@ -3,7 +3,7 @@ import {
   FETCH_RECOMMENDATIONS_SUCCESS,
   FETCH_GROUP_RECOMMENDATIONS_SUCCESS,
   FETCH_RECOMMENDATIONS_FAILURE,
-  ADD_RECOMMENDATION
+  ADD_RECOMMENDATION, DELETE_GROUP
 } from "../actionTypes";
 
 
@@ -62,6 +62,12 @@ export default function recommendationsReducer(state = initialState, action) {
             year: action.recommendations.year,
             imageUrl: action.recommendations.imageUrl
           }
+        }
+
+      case DELETE_GROUP:
+        return {
+          ...state,
+          pending: false,
         }
 
     default:

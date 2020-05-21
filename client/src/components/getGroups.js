@@ -7,11 +7,9 @@ import {fetchGroupRecommendations} from '../redux/fetchRecommendations';
 import { fetchOneGroup, fetchGroups } from '../redux/fetchGroups';
 import { fetchGroupChatPosts } from '../redux/fetchChatPosts';
 import { hideShowComponent } from '../redux/actions/groupActions';
-import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
+import {getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 import {getRecommendations} from '../redux/reducers/recommendations';
-import GetRecommendations from './getRecommendations';
-import AddRecommendation from './addRecommendation';
 
 class ShowGroups extends React.Component {
   constructor(props) {
@@ -20,7 +18,6 @@ class ShowGroups extends React.Component {
   }
 
   handleClick = (group) => {
-
     this.props.handleGroup(group);
   };
 
@@ -32,7 +29,6 @@ class ShowGroups extends React.Component {
     )
   }
 }
-
 
 class GetGroups extends React.Component {
   constructor(props) {
@@ -62,7 +58,7 @@ class GetGroups extends React.Component {
 
 
   render() {
-    const {groups, error, pending, current_group, user, show_component} = this.props;
+    const {groups, current_group, user, show_component} = this.props;
     const rows = this.props.groups;
 
     return (
@@ -81,13 +77,11 @@ class GetGroups extends React.Component {
 
 
 const mapStateToProps = state => ({
-  error: getGroupsError(state),
   groups: getGroups(state),
   user: getUser(state),
   current_group: getGroup(state),
   recommendations: getRecommendations(state),
-  show_component: showComponent(state),
-  pending: getGroupsPending(state)
+  show_component: showComponent(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -6,7 +6,8 @@ const {Datastore} = require('@google-cloud/datastore');
 
 module.exports = {
   getRecommendations: getRecommendations,
-  addRecommendation: addRecommendation
+  addRecommendation: addRecommendation,
+  deleteRecommendation: deleteRecommendation
 }
 
 
@@ -82,4 +83,18 @@ async function getRecommendations(datastore, id) {
    catch(err) {
      console.error('ERROR: ', err);
    }
+ };
+
+
+ async function deleteRecommendation(datastore, groupId, recommendationId) {
+     console.log("deleteRecommendation - id: ", recommendationId);
+     const key = datastore.key(['Group', datastore.int(groupId), 'Recommendation', datastore.int(recommendationId)]);
+     //console.log("getGroup - key: ", key);
+     try {
+         await datastore.delete(key);
+     }
+     catch(err) {
+         console.error('ERROR: ', err);
+     }
+
  };

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Navbar, Button, Nav} from 'react-bootstrap';
 import GetGroups from './getGroups';
 import AddGroup from './addGroup';
 import GetRecommendations from './getRecommendations';
 import AddRecommendation from './addRecommendation';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchDeleteGroup, fetchGroups } from '../redux/fetchGroups';
+import { setShowComponent } from '../redux/actions/groupActions';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
@@ -18,13 +19,24 @@ import ReactShadowScroll from 'react-shadow-scroll'; //npm i react-shadow-scroll
 
 class MainBox extends Component{
   constructor(props){
-    super(props)
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
       const {fetchGroupRecommendations} = this.props;
       fetchGroupRecommendations(this.props.current_group.id);
   }
+
+  handleClick = (group_id) => {
+    const {fetchDeleteGroup} = this.props;
+    fetchDeleteGroup(group_id);
+    const {setShowComponent} = this.props;
+    setShowComponent();
+    const {fetchGroups} = this.props;
+    fetchGroups();
+
+  };
 
 
 
@@ -37,7 +49,10 @@ class MainBox extends Component{
         <AddGroup/>
         :
         <div className = "MainBox">
-        <h1 className="pt-2"> {this.props.current_group.title} </h1>
+          <h1 className="pt-2"> {this.props.current_group.title} </h1>
+          <strong className="delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
+            Delete Group
+          </strong>
           <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>
@@ -69,7 +84,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchGroupRecommendations: fetchGroupRecommendations
+    fetchGroupRecommendations: fetchGroupRecommendations,
+    fetchDeleteGroup: fetchDeleteGroup,
+    setShowComponent: setShowComponent,
+    fetchGroups: fetchGroups
 }, dispatch)
 
 

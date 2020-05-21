@@ -1,6 +1,6 @@
 import { FETCH_RECOMMENDATIONS_BEGIN, FETCH_RECOMMENDATIONS_SUCCESS,
   FETCH_GROUP_RECOMMENDATIONS_SUCCESS, FETCH_RECOMMENDATIONS_FAILURE,
-  ADD_RECOMMENDATION}
+  ADD_RECOMMENDATION, DELETE_RECOMMENDATION}
   from "./actionTypes";
 
 export function addRecommendation(recommendations) {
@@ -16,6 +16,12 @@ export function addRecommendation(recommendations) {
           year: recommendations.year,
           imageUrl: recommendations.imageUrl
         }
+    }
+}
+
+export function deleteRecommendation(recommendation) {
+    return {
+        type: DELETE_RECOMMENDATION
     }
 }
 
