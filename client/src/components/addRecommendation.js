@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setShowAdd, hideShowAdd } from '../redux/actions';
 import { fetchAddRecommendation, fetchGroupRecommendations } from '../redux/fetchRecommendations';
-import {getRecommendations, getRecommendationsError, getRecommendationsPending} from '../redux/reducers/recommendations';
+import {getRecommendations, getRecommendationsError, getRecommendationsPending, showAdd} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
@@ -17,7 +18,12 @@ class AddRec extends React.Component {
   constructor(props) {
       super(props);
       this.onFormSubmit = this.onFormSubmit.bind(this);
+      this.handleHide = this.handleHide.bind(this);
   }
+
+  handleHide = (show_add) => {
+      this.props.handleClickHide(show_add);
+  };
 
    onFormSubmit(val) {
     this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year, this.imageUrl);
@@ -69,12 +75,12 @@ class AddRec extends React.Component {
 
 
   render() {
-    const { category, title, description, rate, source, who, year, recommendations, imageUrl } = this.props;
+    const { category, title, description, rate, source, who, year, recommendations, imageUrl, show_add } = this.props;
     return (
 
 
       <Form onSubmit={this.onFormSubmit}>
-        <small className="pt-4 pb-4">CREATE NEW RECOMMENDATION:</small>
+        <strong className="float-right delete-group" onClick={() => this.handleHide(this.props.show_add )}>X</strong>
         <div className="row form-group">
           <div className="col-6">
 
@@ -209,8 +215,18 @@ class AddRecommendation extends React.Component {
     socket.emit('NewRecommendation', new_id);
   };
 
+  handleClick = (show_add) => {
+      const {setShowAdd} = this.props;
+      setShowAdd();
+  };
+
+  handleClickHide = (show_add) => {
+      const {hideShowAdd} = this.props;
+      hideShowAdd();
+  };
+
   render() {
-    const {recommendations, current_group, error, pending, user} = this.props;
+    const {recommendations, current_group, error, pending, user, show_add} = this.props;
 
     socket = socketIOClient(URL_LOCAL);
 
@@ -226,11 +242,12 @@ class AddRecommendation extends React.Component {
         <React.Fragment>
           <div className="mt-2">
             {this.props.current_group.id ?
-
+            <p className="small group-title" onClick={() => this.handleClick(this.props.show_add )}>CREATE NEW RECOMMENDATION</p>
+            : "" }
+            {this.props.current_group.id && this.props.show_add ?
                 <AddRec handleNewRec={(category, title, description, rate, source, who, year, imageUrl) =>
-                  {this.handleNewRec(category, title, description, rate, source, who, year, imageUrl)}}/>
-                : ""
-            }
+                  {this.handleNewRec(category, title, description, rate, source, who, year, imageUrl)}} handleClickHide={(show_add) => {this.handleClickHide(show_add)}}/>
+            : ""}
           </div>
         </React.Fragment>
     )
@@ -242,12 +259,16 @@ const mapStateToProps = state => ({
     recommendations: getRecommendations(state),
     current_group: getGroup(state),
     user: getUser(state),
+    show_add: showAdd(state),
     pending: getRecommendationsPending(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchAddRecommendation: fetchAddRecommendation,
-    fetchGroupRecommendations: fetchGroupRecommendations
+    fetchGroupRecommendations: fetchGroupRecommendations,
+    setShowAdd: setShowAdd,
+    hideShowAdd: hideShowAdd
+
 }, dispatch)
 
 

@@ -48,11 +48,24 @@ class MainBox extends Component{
         {this.props.show_component ?
         <AddGroup/>
         :
-        <div className = "MainBox">
-          <h1 className="pt-2"> {this.props.current_group.title} </h1>
-          <strong className="delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
+        <div className = "">
+          <div className = "row p-0 m-0">
+            <div className= "col-4 p-3 m-0">
+              {this.props.current_group.imageURL ?
+              <img className="pic pt-2" src= {this.props.current_group.imageURL} alt="" />
+              : "" }
+            </div>
+            <div className= "col-4 mt-3 pt-3">
+              <h1 className="pt-2"> {this.props.current_group.title}</h1>
+            </div>
+            <div className= "col-4">
+            </div>
+          </div>
+          { this.props.current_group.createdBy === this.props.user.name ?
+          <strong className="m-0 p-0 delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
             Delete Group
           </strong>
+          : ""}
           <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>

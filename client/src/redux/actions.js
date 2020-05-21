@@ -1,6 +1,6 @@
 import { FETCH_RECOMMENDATIONS_BEGIN, FETCH_RECOMMENDATIONS_SUCCESS,
   FETCH_GROUP_RECOMMENDATIONS_SUCCESS, FETCH_RECOMMENDATIONS_FAILURE,
-  ADD_RECOMMENDATION, DELETE_RECOMMENDATION}
+  ADD_RECOMMENDATION, DELETE_RECOMMENDATION, SET_SHOW_ADD, SET_NOT_SHOW_ADD}
   from "./actionTypes";
 
 export function addRecommendation(recommendations) {
@@ -23,6 +23,18 @@ export function deleteRecommendation(recommendation) {
     return {
         type: DELETE_RECOMMENDATION
     }
+}
+
+export function setShowAdd() {
+  return {
+    type: SET_SHOW_ADD
+  }
+}
+
+export function hideShowAdd() {
+  return {
+    type: SET_NOT_SHOW_ADD
+  }
 }
 
 

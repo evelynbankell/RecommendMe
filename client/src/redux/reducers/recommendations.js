@@ -3,7 +3,7 @@ import {
   FETCH_RECOMMENDATIONS_SUCCESS,
   FETCH_GROUP_RECOMMENDATIONS_SUCCESS,
   FETCH_RECOMMENDATIONS_FAILURE,
-  ADD_RECOMMENDATION, DELETE_GROUP
+  ADD_RECOMMENDATION, DELETE_GROUP, SET_SHOW_ADD, SET_NOT_SHOW_ADD
 } from "../actionTypes";
 
 
@@ -12,6 +12,7 @@ const initialState = {
   recommendations: [],
   recommendations_current_group: [],
   recommendation_group: 0,
+  show_add: false,
   error: null
 }
 
@@ -24,6 +25,18 @@ export default function recommendationsReducer(state = initialState, action) {
       return {
         ...state,
         pending: true
+      }
+
+    case SET_SHOW_ADD:
+      return {
+        ...state,
+        show_add: true
+      }
+
+    case SET_NOT_SHOW_ADD:
+      return {
+        ...state,
+        show_add: false
       }
 
     case FETCH_RECOMMENDATIONS_SUCCESS:
@@ -76,6 +89,7 @@ export default function recommendationsReducer(state = initialState, action) {
   }
 }
 
+export const showAdd = state => state.recommendations.show_add;
 export const getRecommendationGroup = state => state.recommendations.recommendations_current_group.groupId;
 export const getGroupRecommendations = state => state.recommendations.recommendations_current_group;
 export const getRecommendations = state => state.recommendations.recommendations;
