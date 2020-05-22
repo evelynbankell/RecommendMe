@@ -1,5 +1,5 @@
 import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS,
-  ADD_GROUP, FETCH_GROUPS_FAILURE, SET_SHOW_COMPONENT, SET_NOT_SHOW_COMPONENT } from "../actionTypes";
+  ADD_GROUP, FETCH_GROUPS_FAILURE, SET_SHOW_COMPONENT, SET_NOT_SHOW_COMPONENT, DELETE_GROUP } from "../actionTypes";
 
 
 const initialState = {
@@ -61,6 +61,12 @@ export default function groupsReducer(state = initialState, action) {
         groups: {
           title: action.groups.title
         }
+      }
+
+    case DELETE_GROUP:
+      return {
+        ...state,
+        pending: false,
       }
 
     default:

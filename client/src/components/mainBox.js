@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Navbar, Button, Nav} from 'react-bootstrap';
 import GetGroups from './getGroups';
 import AddGroup from './addGroup';
 import GetRecommendations from './getRecommendations';
 import AddRecommendation from './addRecommendation';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchDeleteGroup, fetchGroups } from '../redux/fetchGroups';
+import { setShowComponent } from '../redux/actions/groupActions';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
@@ -17,13 +18,24 @@ import {Form, FormGroup, Label, Input } from 'react-bootstrap';
 
 class MainBox extends Component{
   constructor(props){
-    super(props)
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
       const {fetchGroupRecommendations} = this.props;
       fetchGroupRecommendations(this.props.current_group.id);
   }
+
+  handleClick = (group_id) => {
+    const {fetchDeleteGroup} = this.props;
+    fetchDeleteGroup(group_id);
+    const {setShowComponent} = this.props;
+    setShowComponent();
+    const {fetchGroups} = this.props;
+    fetchGroups();
+
+  };
 
 
 
@@ -35,8 +47,25 @@ class MainBox extends Component{
         {this.props.show_component ?
         <AddGroup/>
         :
-        <div className = "MainBox">
-        <h1 className="pt-2"> {this.props.current_group.title} </h1>
+        <div className = "">
+          <div className = "row p-0 m-0">
+            <div className= "col-4 p-3 m-0">
+              {this.props.current_group.imageURL ?
+              <img className="pic pt-2" src= {this.props.current_group.imageURL} alt="" />
+              : "" }
+            </div>
+            <div className= "col-4 mt-3 pt-3">
+              <h1 className="pt-2"> {this.props.current_group.title}</h1>
+            </div>
+            <div className= "col-4">
+            </div>
+          </div>
+          { this.props.current_group.createdBy === this.props.user.name ?
+          <strong className="m-0 p-0 delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
+            Delete Group
+          </strong>
+          : ""}
+          <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>
           <div>
@@ -66,7 +95,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchGroupRecommendations: fetchGroupRecommendations
+    fetchGroupRecommendations: fetchGroupRecommendations,
+    fetchDeleteGroup: fetchDeleteGroup,
+    setShowComponent: setShowComponent,
+    fetchGroups: fetchGroups
 }, dispatch)
 
 

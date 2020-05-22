@@ -1,5 +1,5 @@
 import {fetchRecommendationsBegin, fetchRecommendationsSuccess, fetchGroupRecommendationsSuccess,
-  addRecommendation, fetchRecommendationsFailure} from './actions';
+  addRecommendation, fetchRecommendationsFailure, deleteRecommendation} from './actions';
 
 import axios from 'axios';
 
@@ -39,6 +39,27 @@ export function fetchGroupRecommendations(id) {
             dispatch(fetchRecommendationsFailure(error));
         })
     }
+}
+
+export function fetchDeleteRecommendation(groupId, recommendationId) {
+  const data = {
+    groupId,
+    recommendationId
+  };
+  return dispatch => {
+
+      const res = axios({
+        method: 'delete',
+        url: 'http://localhost:8080/groups/'+parseInt(groupId)+'/recommendations/'+parseInt(recommendationId),
+      })
+      .then((res) => {
+          dispatch(deleteRecommendation(res));
+          return res;
+        })
+        .catch(error => {
+            dispatch(fetchRecommendationsFailure(error));
+        })
+  }
 }
 
 export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl, user) {

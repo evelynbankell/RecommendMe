@@ -5,9 +5,14 @@ import { bindActionCreators } from 'redux';
 import { fetchAddChatPost, fetchGroupChatPosts} from '../redux/fetchChatPosts';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
 import {getRecommendations} from '../redux/reducers/recommendations';
-import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
+import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import {getChatPosts} from '../redux/reducers/chatPosts';
 import { getUser } from '../redux/reducers/users';
+// RUN npm i socket.io-client
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
 
 const TableBody = ({ chat_post }) => (
   <div className="row float-left bubble p-1 m-2">
@@ -88,15 +93,25 @@ class ChatPanel extends Component{
     const new_id = this.props.current_group.id.toString();
     const {fetchAddChatPost} = this.props;
     fetchAddChatPost(new_id, content, this.props.user.name);
-    //fetchOneGroup(new_id);
-    //socket.emit('NewPost', new_id);
+    socket.emit('NewPost', new_id);
+
   };
 
   render(){
-      const {groups, error, pending, current_group, user, chat_posts} = this.props;
+      const {groups, error, pending, current_group, user, chat_posts, show_component} = this.props;
+      socket = socketIOClient(URL_LOCAL);
+
+      socket.on("NewPost", data => {
+        console.log("SocketIO event for new post created - reloading post if in active channel:", data);
+        if(this.props.current_group.id == data) {
+            const {fetchGroupChatPosts} = this.props;
+            fetchGroupChatPosts(data);
+        }
+      });
+
     return (
       <React.Fragment>
-        {this.props.current_group.id ?
+        {this.props.current_group.id && this.props.show_component == false ?
         <div className="chatBox m-2">
           <div className="mt-2 pt-2">
             <p className="lead">GROUP CHAT</p>
@@ -124,6 +139,7 @@ const mapStateToProps = state => ({
   groups: getGroups(state),
   current_group: getGroup(state),
   user: getUser(state),
+  show_component: showComponent(state),
   chat_posts: getChatPosts(state),
   recommendations: getRecommendations(state),
   pending: getGroupsPending(state)

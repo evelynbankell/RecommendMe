@@ -107,17 +107,11 @@ async function updateGroup(datastore, id, title, imagesUrl) {
 };
 
 async function deleteGroup(datastore, id) {
-//TODO: fixa - hur gör man delete????
     console.log("deleteGroup - id: ", id);
     const key = datastore.key(['Group', datastore.int(id)]);
     //console.log("getGroup - key: ", key);
     try {
-        let entity = await datastore.get(key);
-        entity = entity[0]; // test if empty?!
-        if (entity == null)
-            return null;
-        let group = new Group(entity['id'], entity['title'], entity['imageURL'], entity['createdDate'], entity['createdBy']);
-        return group;
+        await datastore.delete(key);
     }
     catch(err) {
         console.error('ERROR: ', err);

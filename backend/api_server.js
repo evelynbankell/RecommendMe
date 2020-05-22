@@ -128,6 +128,20 @@ app.post('/groups', async (req, res, next) => {
   }
 });
 
+//delete group
+app.delete('/groups/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    let groups = await group.deleteGroup(datastore, id);
+    console.log("DELETE /group/:id", groups);
+
+    res.json(groups);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 //
 // RECOMMENDATIONS
@@ -176,6 +190,23 @@ app.post('/groups/:id/recommendations', async (req, res, next) => {
   }
 
 });
+
+//delete recommendation
+app.delete('/groups/:groupId/recommendations/:recommendationId', async (req, res, next) => {
+  try {
+    const groupId = req.params.groupId;
+    const recommendationId = req.params.recommendationId;
+
+    let recommendations = await recommendation.deleteRecommendation(datastore, groupId, recommendationId);
+    console.log("DELETE /groups/:groupId/recommendations/:recommendationId", recommendations);
+
+    res.json(recommendations);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 //
 // USERS
@@ -366,7 +397,20 @@ async function uploadFile(filepath, filename) {
   return 'https://storage.cloud.google.com/' + photo_bucket + '/' + filename;
 }
 
+/*
+ * manage Socket.io
+ */
 
+io.on('connection', socket => {
+  socket.on('NewPost', id => {
+    console.log('a new post in group: ', id);
+    socket.broadcast.emit('NewPost', id);
+  });
+  socket.on('NewRecommendation', id => {
+    console.log('a new rec in group: ', id);
+    socket.broadcast.emit('NewRecommendation', id);
+  });
+});
 
 
 
