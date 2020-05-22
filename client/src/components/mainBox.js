@@ -54,16 +54,17 @@ class MainBox extends Component{
 
         <div className = "">
           {this.props.show_update ? <UpdateGroup/> :
-          <div className = "row p-0 m-0">
+          <div className="container">
+          <div className = "row m-0 p-0">
             <div className= "col-4 p-3 m-0">
               {this.props.current_group.imageURL ?
               <img className="pic pt-2" src= {this.props.current_group.imageURL} alt="" />
               : "" }
             </div>
-            <div className= "col-4 mt-3 pt-3">
+            <div className= "col-5 mt-3 pt-3">
               <h1 className="pt-2"> {this.props.current_group.title}</h1>
             </div>
-            <div className= "col-4 p-3 mt-3">
+            <div className= "col-3 float-right mt-3">
               { this.props.current_group.createdBy === this.props.user.name ?
               <button className="btn btn-danger p-3 delete-group2" onClick={() => this.handleClick(this.props.current_group.id)}>
                 Delete Group
@@ -75,21 +76,19 @@ class MainBox extends Component{
               </button>
               : ""}
             </div>
-             <ul>
-             <AddRecommendation current_group={this.props.current_group}/>
-             <div>
-             <div className="Bild">
-             <img src= {this.props.current_group.imageUrl} alt="" width="300" />
-             </div>
-             {this.props.current_group.id
-               ? <GetRecommendations current_group={this.props.current_group}/>
-               : "No recommendations"}
-               </div>
-               </ul>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                 <ul className="text-center">
+                 <AddRecommendation current_group={this.props.current_group}/>
+                 {this.props.current_group.id
+                   ? <GetRecommendations current_group={this.props.current_group}/>
+                   : "No recommendations"}
 
-
+                </ul>
+              </div>
+            </div>
           </div>
-
           }
         </div>
 

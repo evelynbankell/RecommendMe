@@ -35,7 +35,7 @@ class App extends React.Component {
                     <div className="col-3">
                       <ChatPanel/>
                     </div>
-                    <div className="col-6">
+                    <div className="col-7">
                       <MainBox/>
                     </div>
                 </div>

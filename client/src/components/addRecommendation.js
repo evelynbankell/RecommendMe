@@ -259,9 +259,9 @@ class AddRecommendation extends React.Component {
 
     return (
         <React.Fragment>
-          <div className="mt-2">
+          <div className="mt-2 text-center">
             {this.props.current_group.id ?
-            <strong className="group-title" onClick={() => this.handleClick(this.props.show_add )}>CREATE NEW RECOMMENDATION</strong>
+            <strong className="text-center group-title" onClick={() => this.handleClick(this.props.show_add )}>CREATE NEW RECOMMENDATION</strong>
             : "" }
             {this.props.current_group.id && this.props.show_add ?
                 <AddRec handleNewRec={(category, title, description, rate, source, who, year, comment, imageUrl) =>
