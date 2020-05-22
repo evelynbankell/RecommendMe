@@ -81,22 +81,19 @@ async function addGroup(datastore, group) {
     }
 };
 
-async function updateGroup(datastore, id, title, imagesUrl) {
+async function updateGroup(datastore, id, title, imageURL) {
 
     console.log("Update group: ", id);
-    const key = datastore.key('Group', datastore.int(id));
+    const key = datastore.key(['Group', datastore.int(id)]);
 
-    // set fields to update
-    let data = {};
-    if (title != null)
-        data['title'] = title;
-    if (imageUrl != null)
-        data['imageUrl'] = imageUrl;
 
     try {
         await datastore.merge({
             key: key,
-            data: data
+            data: {
+              title: title,
+              imageURL: imageURL
+            }
         });
         console.log(`Group ${key.id} updated successfully`);
         return key;
@@ -105,6 +102,7 @@ async function updateGroup(datastore, id, title, imagesUrl) {
         console.error('ERROR updating group: ', err);
     }
 };
+
 
 async function deleteGroup(datastore, id) {
     console.log("deleteGroup - id: ", id);

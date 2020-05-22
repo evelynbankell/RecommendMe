@@ -197,6 +197,10 @@ textarea.has-error:active {
   cursor: pointer;
 }
 
+.group-title{
+  color: #4056A1;
+}
+
 
 @keyframes App-logo-float {
   0% {
@@ -304,4 +308,20 @@ overflow: auto;
 
 .delete-group{
   color: #0250bc;
+}
+
+.delete-group2:hover{
+  color: white;
+  cursor: pointer;
+}
+
+.delete-group2{
+  color: white;
+}
+
+
+
+.update-button{
+  background-color: #FFCE9C;
+  color: white;
 }

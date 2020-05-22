@@ -101,8 +101,6 @@ app.get('/groups/:id', async (req, res, next) => {
 // Content-type: form-data
 app.post('/groups', async (req, res, next) => {
   // upload image and move to GCP Storage
-
-  // TODO: add a default image here
   let imageURL = '';
   try {
     if(req.files) {
@@ -127,6 +125,39 @@ app.post('/groups', async (req, res, next) => {
     next(error);
   }
 });
+
+//Update group
+app.put('/groups/:id', async (req, res, next) => {
+  console.log("PUT /groups/:id ", req.params.id);
+
+  let imageURL = '';
+  try {
+    if(req.files) {
+        imageURL = req.files.imageURL;
+        let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
+        imageURL.mv('./uploads/' + unique_filename);
+        imageURL = await uploadFile('./uploads/', unique_filename);
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  try {
+    const id = req.params.id;
+    let title = req.body.title;
+    //data['imageURL']= imageURL;
+    let key = await group.updateGroup(datastore, id, title, imageURL);
+    console.log("PUT /groups/:id ", key);
+    if (key)
+      res.json(key);
+    else
+      return res.sendStatus(404);
+  } catch (error) {
+    next(error);
+    res.status(400).send(error);
+  }
+});
+
 
 //delete group
 app.delete('/groups/:id', async (req, res, next) => {

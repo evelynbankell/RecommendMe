@@ -1,5 +1,6 @@
 import {  FETCH_GROUPS_BEGIN, FETCH_GROUPS_SUCCESS, FETCH_ONE_GROUP_SUCCESS,
-  ADD_GROUP, FETCH_GROUPS_FAILURE, SET_SHOW_COMPONENT, SET_NOT_SHOW_COMPONENT, DELETE_GROUP } from "../actionTypes";
+  ADD_GROUP, FETCH_GROUPS_FAILURE, SET_SHOW_COMPONENT, SET_NOT_SHOW_COMPONENT, DELETE_GROUP,
+  SET_HIDE_UPDATE, SET_SHOW_UPDATE} from "../actionTypes";
 
 
 export function addGroup(group) {
@@ -15,6 +16,13 @@ export function deleteGroup(group) {
     }
 }
 
+export function updateGroup(group) {
+    return {
+        type: ADD_GROUP,
+        groups: group
+    }
+}
+
 export function setShowComponent() {
   return {
     type: SET_SHOW_COMPONENT
@@ -24,6 +32,18 @@ export function setShowComponent() {
 export function hideShowComponent() {
   return {
     type: SET_NOT_SHOW_COMPONENT
+  }
+}
+
+export function setHideUpdate() {
+  return {
+    type: SET_HIDE_UPDATE
+  }
+}
+
+export function setShowUpdate() {
+  return {
+    type: SET_SHOW_UPDATE
   }
 }
 

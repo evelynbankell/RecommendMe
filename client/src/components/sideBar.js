@@ -21,11 +21,6 @@ class SideBar extends Component{
       setShowComponent();
   };
 
-  handleNewGroup = (title) => {
-    const {fetchAddGroup} = this.props;
-    fetchAddGroup(title);
-  };
-
   render(){
     const {groups, current_group, user, show_component} = this.props;
     return (

@@ -1,5 +1,5 @@
 import {fetchGroupsBegin, fetchGroupsSuccess, fetchGroupSuccess,
-  addGroup, fetchGroupsFailure, deleteGroup} from './actions/groupActions';
+  addGroup, fetchGroupsFailure, deleteGroup, updateGroup} from './actions/groupActions';
 //import fetch from 'cross-fetch';
 import axios from 'axios';
 
@@ -84,4 +84,29 @@ export function fetchAddGroup(title, createdBy, imageURL) {
               dispatch(fetchGroupsFailure(error));
           })
     }
+}
+
+export function fetchUpdateGroup(id, title, imageURL) {
+    const formData = new FormData();
+  //  if(title != "") {
+      formData.set('title', title);
+  //  }
+      formData.append('imageURL', imageURL);
+
+
+    return dispatch => {
+
+      const res = axios({
+        method: 'put',
+        url: 'http://localhost:8080/groups/'+parseInt(id),
+        data: formData
+      })
+      .then((res) => {
+          dispatch(addGroup(res));
+          return res;
+        })
+        .catch(error => {
+            dispatch(fetchGroupsFailure(error));
+        })
+      }
 }

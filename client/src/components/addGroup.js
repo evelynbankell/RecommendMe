@@ -77,6 +77,8 @@ class AddGroup extends React.Component {
   handleNewGroup = (title, imageURL) => {
     const {fetchAddGroup} = this.props;
     fetchAddGroup(title, this.props.user.name, imageURL);
+    const {fetchGroups} = this.props;
+    fetchGroups();
   };
 
   render() {
@@ -100,6 +102,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchAddGroup: fetchAddGroup,
+    fetchGroups: fetchGroups
 }, dispatch)
 
 
