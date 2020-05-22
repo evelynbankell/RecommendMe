@@ -17,6 +17,7 @@ class TableBody extends React.Component {
     this.props.handleDelete(groupid, recommendation_id);
   };
 
+
   render() {
     const {recommendation, current_group, user} = this.props;
     return (
@@ -85,7 +86,6 @@ class TableBody extends React.Component {
     )
   }
 }
-
 
 class GetRecommendations extends React.Component {
   constructor(props) {

@@ -8,6 +8,7 @@ import AddRecommendation from './addRecommendation';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDeleteGroup, fetchGroups } from '../redux/fetchGroups';
+import { fetchDeleteRecommendation, fetchRecommendations } from '../redux/fetchRecommendations';
 import { setShowComponent } from '../redux/actions/groupActions';
 import { setShowUpdate, setHideUpdate } from '../redux/actions/groupActions';
 import { fetchGroupRecommendations } from '../redux/fetchRecommendations';
@@ -40,7 +41,21 @@ class MainBox extends Component{
     socket.emit('DeleteGroup', this.props.current_group.id);
   };
 
+  handleClick = (recomendation_id) => {
+    const {fetchDeleteRecommendation} = this.props;
+    fetchDeleteRecommendation(recomendation_id);
+    const {setShowComponent} = this.props;
+    setShowComponent();
+    socket.emit('DeleteRecomendation', this.props.current_recommendation.id);
+  };
+
+
   handleUpdate = (group_id) => {
+    const {setShowUpdate} = this.props;
+    setShowUpdate();
+  };
+
+  handleUpdate = (recomendation_id) => {
     const {setShowUpdate} = this.props;
     setShowUpdate();
   };
@@ -56,6 +71,12 @@ class MainBox extends Component{
         console.log("SocketIO event for delete group created - reloading groups:", data);
         const {fetchGroups} = this.props;
         fetchGroups();
+      });
+
+      socket.on("DeleteRecomendation", data => {
+        console.log("SocketIO event for delete recommendation created - reloading recommendations:", data);
+        const {fetchRecommendations} = this.props;
+        fetchRecommendations();
       });
 
     return (
@@ -127,6 +148,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchGroupRecommendations: fetchGroupRecommendations,
     fetchDeleteGroup: fetchDeleteGroup,
+    fetchDeleteRecommendation:fetchDeleteRecommendation,
     setShowComponent: setShowComponent,
     setHideUpdate: setHideUpdate,
     setShowUpdate: setShowUpdate,
