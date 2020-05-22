@@ -71,6 +71,11 @@ class TableBody extends React.Component {
           : "" }
         </div>
         <div className="col-12">
+          {recommendation.whatUser != "undefined" ?
+            <p className="m-0 p-0"><strong>User:</strong> {this.props.user.name}</p>
+          : "" }
+        </div>
+        <div className="col-12">
           {recommendation.imageUrl ?
             <p className="m-0 p-0"><img src= {recommendation.imageUrl} alt="" width="220" /> </p>
           : "" }
