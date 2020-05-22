@@ -72,7 +72,7 @@ class TableBody extends React.Component {
         </div>
         <div className="col-12">
           {recommendation.imageUrl ?
-            <p className="m-0 p-0"><strong>Image:</strong> <img src= {recommendation.imageUrl} alt="" width="300" /> </p>
+            <p className="m-0 p-0"><img src= {recommendation.imageUrl} alt="" width="220" /> </p>
           : "" }
         </div>
       </div>
