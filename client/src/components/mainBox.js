@@ -15,7 +15,6 @@ import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent, showUpdate} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 
-import ReactShadowScroll from 'react-shadow-scroll'; //npm i react-shadow-scroll
 
 
 
@@ -92,7 +91,6 @@ class MainBox extends Component{
             : "No recommendations"}
             </div>
             </ul>
-          </ReactShadowScroll>
         </div>
 
       }

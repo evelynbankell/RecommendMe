@@ -98,6 +98,7 @@ class GetRecommendations extends React.Component {
         <React.Fragment>
           <div className="">
             <div className="container float-left">
+          <div className="table-wrapper-scroll-y posts-scrollbar">
                 {this.props.current_group.id
                   ? recommendations_current_group.map((recommendation, index) => {
                     if (this.props.current_group.id === recommendation.groupId)
@@ -105,6 +106,7 @@ class GetRecommendations extends React.Component {
                       current_group={this.props.current_group} user={this.props.user} handleDelete={(group, recommendation) => {this.handleDelete(group, recommendation)}}/>;
                     })
                   : "No recommendations"}
+                  </div>
               </div>
             </div>
         </React.Fragment>
