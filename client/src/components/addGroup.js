@@ -5,9 +5,12 @@ import { bindActionCreators } from 'redux';
 import { fetchOneGroup, fetchGroups, fetchAddGroup } from '../redux/fetchGroups';
 import {getGroupsError, getGroupsPending, getGroups, getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
-
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
 
 class GroupForm extends React.Component {
   constructor(props) {
@@ -74,15 +77,25 @@ class AddGroup extends React.Component {
       super(props);
   }
 
+
+
   handleNewGroup = (title, imageURL) => {
     const {fetchAddGroup} = this.props;
     fetchAddGroup(title, this.props.user.name, imageURL);
-    const {fetchGroups} = this.props;
-    fetchGroups();
+    socket.emit('NewGroup', this.props.current_group.id);
+  //  const {fetchGroups} = this.props;
+  //  fetchGroups();
   };
 
   render() {
-    const {user} = this.props;
+    const {user, current_group} = this.props;
+    socket = socketIOClient(URL_LOCAL);
+
+    socket.on("NewGroup", data => {
+      console.log("SocketIO event for new group created - reloading group:", data);
+      const {fetchGroups} = this.props;
+      fetchGroups();
+    });
     return (
         <React.Fragment>
           <div className="p-3">

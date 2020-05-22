@@ -15,6 +15,11 @@ import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent, showUpdate} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
+
 
 class MainBox extends Component{
   constructor(props){
@@ -32,8 +37,7 @@ class MainBox extends Component{
     fetchDeleteGroup(group_id);
     const {setShowComponent} = this.props;
     setShowComponent();
-    const {fetchGroups} = this.props;
-    fetchGroups();
+    socket.emit('DeleteGroup', this.props.current_group.id);
   };
 
   handleUpdate = (group_id) => {
@@ -45,6 +49,14 @@ class MainBox extends Component{
 
   render(){
       const {groups, error, pending, current_group, user, show_component, show_update} = this.props;
+
+      socket = socketIOClient(URL_LOCAL);
+
+      socket.on("DeleteGroup", data => {
+        console.log("SocketIO event for delete group created - reloading groups:", data);
+        const {fetchGroups} = this.props;
+        fetchGroups();
+      });
 
     return (
       <React.Fragment>

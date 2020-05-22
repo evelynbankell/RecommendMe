@@ -8,6 +8,11 @@ import { useDispatch } from 'react-redux';
 import { getUser } from '../redux/reducers/users';
 import { fetchUpdateUser } from '../redux/fetchUsers';
 
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
+
 
 class TopBar extends Component{
   constructor(props){
@@ -19,11 +24,12 @@ class TopBar extends Component{
     console.log("logout user:", this.props.user);
     const {fetchUpdateUser} = this.props;
     fetchUpdateUser(this.props.user.email, this.props.user.name, "false", this.props.user.imageURL);
+    socket.disconnect();
   };
 
   render(){
     const {user} = this.props;
-
+    socket = socketIOClient(URL_LOCAL);
     return (
       <React.Fragment>
           <Navbar expand="lg" className="nav-item">

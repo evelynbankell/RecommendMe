@@ -9,6 +9,11 @@ import { getUser } from '../redux/reducers/users';
 
 import {Form, FormGroup, Label, Input, Button } from 'react-bootstrap';
 
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
+
 
 class GroupForm extends React.Component {
   constructor(props) {
@@ -82,21 +87,30 @@ class UpdateGroup extends React.Component {
   }
 
   handleClickHide = (show_update) => {
-      const {setHideUpdate, fetchOneGroup, fetchGroups} = this.props;
-      setHideUpdate();
-      fetchGroups();
-      fetchOneGroup(this.props.current_group.id);
+    const {setHideUpdate, fetchOneGroup} = this.props;
+    setHideUpdate();
+    fetchOneGroup(this.props.current_group.id);
   };
 
   handleUpdateGroup = (current_group, title, imageURL) => {
     const {fetchUpdateGroup, fetchOneGroup, fetchGroups} = this.props;
     fetchUpdateGroup(current_group.id, title, imageURL);
+    socket.emit('UpdateGroup', this.props.current_group.id);
     //fetchOneGroup(current_group.id);
     //fetchGroups();
   };
 
   render() {
     const {user, current_group, show_update} = this.props;
+    socket = socketIOClient(URL_LOCAL);
+
+    socket.on("UpdateGroup", data => {
+      console.log("SocketIO event for update group created - reloading group:", data);
+      const {fetchGroups, fetchOneGroup} = this.props;
+      fetchGroups();
+      fetchOneGroup(data);
+    });
+
     return (
         <React.Fragment>
           {this.props.current_group.id && this.props.show_update ?

@@ -441,6 +441,21 @@ io.on('connection', socket => {
     console.log('a new rec in group: ', id);
     socket.broadcast.emit('NewRecommendation', id);
   });
+  socket.on('NewGroup', id => {
+    console.log('new group: ', id);
+    socket.broadcast.emit('NewGroup', id);
+  });
+  socket.on('UpdateGroup', id => {
+    console.log('update group: ', id);
+    socket.broadcast.emit('UpdateGroup', id);
+  });
+  socket.on('DeleteGroup', id => {
+    console.log('delete group: ', id);
+    socket.broadcast.emit('DeleteGroup', id);
+  });
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
 });
 
 
