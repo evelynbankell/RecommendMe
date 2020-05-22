@@ -26,7 +26,7 @@ class AddRec extends React.Component {
   };
 
    onFormSubmit(val) {
-    this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year, this.imageUrl);
+    this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year, this.comment, this.imageUrl);
   }
 
   //Not the best solution -> Try to make this prettier
@@ -65,6 +65,11 @@ class AddRec extends React.Component {
     this.year = value;
   }
 
+  handleChangeCommment = event => {
+    const { name, value } = event.target;
+    this.comment = value;
+  }
+
   handleChangeImage = event => {
 
     this.imageUrl = event.target.files[0];
@@ -74,8 +79,10 @@ class AddRec extends React.Component {
   }
 
 
+
+
   render() {
-    const { category, title, description, rate, source, who, year, recommendations, imageUrl, show_add } = this.props;
+    const { category, title, description, rate, source, who, year, recommendations, comment, imageUrl, show_add } = this.props;
     return (
 
 
@@ -181,6 +188,18 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
+            <label className="pt-2 pr-2 mb-0" name="comment" type="text" label="Comment">Comment: </label>
+            <input
+            type="string"
+            name="comment"
+            className="form-control"
+            id="name"
+            placeholder="Enter comment:"
+            value={comment}
+            onChange={this.handleChangeCommment}
+            />
+          </div>
+          <div className="col-6">
             <label className="pt-2 pr-2 mb-0" name="imageUrl" type="text" label="imageUrl">Add image: </label>
             <input
             type="file"
@@ -208,10 +227,10 @@ class AddRecommendation extends React.Component {
       super(props);
   }
 
-  handleNewRec = (category, title, description, rate, source, who, year, imageUrl) => {
+  handleNewRec = (category, title, description, rate, source, who, year, comment, imageUrl) => {
     const new_id = this.props.current_group.id.toString();
     const {fetchAddRecommendation} = this.props;
-    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, imageUrl, this.props.user.name);
+    fetchAddRecommendation(new_id, category, title, description, rate, source, who, year, comment, imageUrl, this.props.user.name);
     socket.emit('NewRecommendation', new_id);
   };
 
@@ -245,8 +264,8 @@ class AddRecommendation extends React.Component {
             <p className="small group-title" onClick={() => this.handleClick(this.props.show_add )}>CREATE NEW RECOMMENDATION</p>
             : "" }
             {this.props.current_group.id && this.props.show_add ?
-                <AddRec handleNewRec={(category, title, description, rate, source, who, year, imageUrl) =>
-                  {this.handleNewRec(category, title, description, rate, source, who, year, imageUrl)}} handleClickHide={(show_add) => {this.handleClickHide(show_add)}}/>
+                <AddRec handleNewRec={(category, title, description, rate, source, who, year, comment, imageUrl) =>
+                  {this.handleNewRec(category, title, description, rate, source, who, year, comment, imageUrl)}} handleClickHide={(show_add) => {this.handleClickHide(show_add)}}/>
             : ""}
           </div>
         </React.Fragment>

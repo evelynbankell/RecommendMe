@@ -73,6 +73,7 @@ export default function recommendationsReducer(state = initialState, action) {
             source: action.recommendations.source,
             who: action.recommendations.who,
             year: action.recommendations.year,
+            comment: action.recommendations.comment,
             imageUrl: action.recommendations.imageUrl
           }
         }

@@ -65,7 +65,6 @@ class MainBox extends Component{
             Delete Group
           </strong>
           : ""}
-          <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>
           <div>

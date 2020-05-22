@@ -14,6 +14,7 @@ export function addRecommendation(recommendations) {
           source: recommendations.source,
           who: recommendations.who,
           year: recommendations.year,
+          comment: recommendations.comment,
           imageUrl: recommendations.imageUrl
         }
     }

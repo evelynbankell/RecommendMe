@@ -62,7 +62,7 @@ export function fetchDeleteRecommendation(groupId, recommendationId) {
   }
 }
 
-export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, imageUrl, user) {
+export function fetchAddRecommendation(id, category, title, description, rate, source, who, year, comment, imageUrl, user) {
     const today = new Date();
     const date = today.getFullYear()+'-'+('0' +(today.getMonth()+1)).slice(-2) +'-'+('0' +(today.getDate())).slice(-2);
     const time = ('0' +(today.getHours())).slice(-2) + ":" + ('0' +(today.getMinutes())).slice(-2);
@@ -77,6 +77,7 @@ export function fetchAddRecommendation(id, category, title, description, rate, s
     formData.set('source', source);
     formData.set('who', who);
     formData.set('year', year);
+    formData.set('comment', comment);
     formData.set('createdDate', createdDate);
     formData.append('imageUrl', imageUrl);
 
