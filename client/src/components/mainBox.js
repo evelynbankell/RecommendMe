@@ -16,8 +16,6 @@ import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent, sh
 import { getUser } from '../redux/reducers/users';
 
 
-
-
 class MainBox extends Component{
   constructor(props){
     super(props);
@@ -77,23 +75,22 @@ class MainBox extends Component{
               </button>
               : ""}
             </div>
+             <ul>
+             <AddRecommendation current_group={this.props.current_group}/>
+             <div>
+             <div className="Bild">
+             <img src= {this.props.current_group.imageUrl} alt="" width="300" />
+             </div>
+             {this.props.current_group.id
+               ? <GetRecommendations current_group={this.props.current_group}/>
+               : "No recommendations"}
+               </div>
+               </ul>
+
+
           </div>
-          { this.props.current_group.createdBy === this.props.user.name ?
-          <strong className="m-0 p-0 delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
-            Delete Group
-          </strong>
-          : ""}
-          <ul>
-          <AddRecommendation current_group={this.props.current_group}/>
-          <div>
-          <div className="Bild">
-          <img src= {this.props.current_group.imageUrl} alt="" width="300" />
-          </div>
-          {this.props.current_group.id
-            ? <GetRecommendations current_group={this.props.current_group}/>
-            : "No recommendations"}
-            </div>
-            </ul>
+
+          }
         </div>
 
       }
@@ -101,6 +98,9 @@ class MainBox extends Component{
     )
   }
 }
+
+
+
 
 const mapStateToProps = state => ({
   error: getGroupsError(state),
