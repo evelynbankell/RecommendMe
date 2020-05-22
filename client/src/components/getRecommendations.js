@@ -70,12 +70,14 @@ class GetRecommendations extends React.Component {
         <React.Fragment>
           <div className="">
             <div className="container float-left">
+          <div className="table-wrapper-scroll-y posts-scrollbar">
                 {this.props.current_group.id
                   ? recommendations_current_group.map((recommendation, index) => {
                     if (this.props.current_group.id === recommendation.groupId)
                       return <TableBody key={`recommendation-${recommendation.id}`} recommendation={recommendation} />;
                     })
                   : "No recommendations"}
+                  </div>
               </div>
             </div>
         </React.Fragment>

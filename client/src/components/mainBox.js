@@ -14,7 +14,6 @@ import { getUser } from '../redux/reducers/users';
 import Popup from 'react-popup';
 import {Form, FormGroup, Label, Input } from 'react-bootstrap';
 
-import ReactShadowScroll from 'react-shadow-scroll'; //npm i react-shadow-scroll
 
 class MainBox extends Component{
   constructor(props){
@@ -38,7 +37,6 @@ class MainBox extends Component{
         :
         <div className = "MainBox">
         <h1 className="pt-2"> {this.props.current_group.title} </h1>
-          <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>
           <div>
@@ -50,7 +48,6 @@ class MainBox extends Component{
             : "No recommendations"}
             </div>
             </ul>
-          </ReactShadowScroll>
         </div>
         }
       </React.Fragment>
