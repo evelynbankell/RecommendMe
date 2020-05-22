@@ -117,7 +117,7 @@ class ChatPanel extends Component{
             <p className="lead">GROUP CHAT</p>
           </div>
           <div className="table-wrapper-scroll-y posts-scrollbar">
-          <div className="container posts-in-channel">
+            <div className="container posts-in-channel">
               {this.props.current_group.id
                 ? this.props.chat_posts.map((chat_post, index) => {
                     return <TableBody key={`chat_post-${chat_post.id}`} chat_post={chat_post} />;

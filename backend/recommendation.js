@@ -14,7 +14,7 @@ module.exports = {
 /*
  * Manage Recommendation
  */
-function Recommendation(id, groupId, category, createdBy, createdDate, description, imageUrl, rate, source, title, who, year) {
+function Recommendation(id, groupId, category, createdBy, createdDate, description, imageUrl, rate, source, title, who, year, comment) {
     this.id = id;
     this.groupId = groupId;
     this.category = category;
@@ -27,6 +27,7 @@ function Recommendation(id, groupId, category, createdBy, createdDate, descripti
     this.title = title;
     this.who = who;
     this.year = year;
+    this.comment = comment;
 }
 
 async function getRecommendations(datastore, id) {
@@ -43,7 +44,7 @@ async function getRecommendations(datastore, id) {
       entities = entities[0];
       for (const entity of entities) {
         let recommendation = new Recommendation(entity[datastore.KEY]['id'], entity['groupId'], entity['category'], entity['createdBy'], entity['createdDate'], entity['description'], entity['imageUrl'], entity['rate'], entity['source'],
-        entity['title'], entity['who'], entity['year']
+        entity['title'], entity['who'], entity['year'], entity['comment']
       );
         recommendations.push(recommendation);
       }
@@ -68,6 +69,7 @@ async function getRecommendations(datastore, id) {
      title: recommendation.title,
      who: recommendation.who,
      year: recommendation.year,
+     comment: recommendation.comment,
      groupId: id
    };
    console.log(key);

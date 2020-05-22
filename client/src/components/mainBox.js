@@ -78,8 +78,11 @@ class MainBox extends Component{
               : ""}
             </div>
           </div>
-        }
-          <ReactShadowScroll isShadow={true} scrollWidth={10} scrollPadding={5}>
+          { this.props.current_group.createdBy === this.props.user.name ?
+          <strong className="m-0 p-0 delete-group" onClick={() => this.handleClick(this.props.current_group.id)}>
+            Delete Group
+          </strong>
+          : ""}
           <ul>
           <AddRecommendation current_group={this.props.current_group}/>
           <div>

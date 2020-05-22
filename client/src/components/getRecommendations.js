@@ -56,6 +56,11 @@ class TableBody extends React.Component {
           : "" }
         </div>
         <div className="col-12">
+          {recommendation.comment != "undefined" ?
+            <p className="m-0 p-0"><strong>Comment:</strong> {recommendation.comment}</p>
+          : "" }
+        </div>
+        <div className="col-12">
           {recommendation.who != "undefined" ?
             <p className="m-0 p-0"><strong>Made by who:</strong> {recommendation.who}</p>
           : "" }
