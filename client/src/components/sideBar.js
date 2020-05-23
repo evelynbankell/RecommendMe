@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import GetGroups from './getGroups';
-import AddGroup from './addGroup';
-import LoginModal from './login';
-import MainBox from './mainBox';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setShowComponent } from '../redux/actions/groupActions';

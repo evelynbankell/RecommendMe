@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setShowAdd, hideShowAdd } from '../redux/actions';
@@ -29,7 +28,6 @@ class AddRec extends React.Component {
     this.props.handleNewRec(this.category, this.title, this.description, this.rate, this.source, this.who, this.year, this.comment, this.imageUrl);
   }
 
-  //Not the best solution -> Try to make this prettier
   handleChangeTitle = event => {
     const { name, value } = event.target;
     this.title = value;
@@ -73,13 +71,7 @@ class AddRec extends React.Component {
   handleChangeImage = event => {
 
     this.imageUrl = event.target.files[0];
-    //his.imageUrl = value.replace("C:\\fakepath\\", "");
-    //this.imageUrl.toString();
-
   }
-
-
-
 
   render() {
     const { category, title, description, rate, source, who, year, recommendations, comment, imageUrl, show_add } = this.props;
@@ -214,12 +206,11 @@ class AddRec extends React.Component {
           <div className="col-12 pt-2">
               <Button variant="primary" type="submit">Create</Button>
           </div>
-          </div>
-        </Form>
+        </div>
+      </Form>
     )
   }
 }
-
 
 
 class AddRecommendation extends React.Component {

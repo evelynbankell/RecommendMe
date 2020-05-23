@@ -13,12 +13,10 @@ const URL_LOCAL = 'http://localhost:8080';
 
 let socket = null;
 
-
 class TopBar extends Component{
   constructor(props){
     super(props)
   }
-
 
   logout = () => {
     console.log("logout user:", this.props.user);
@@ -40,14 +38,12 @@ class TopBar extends Component{
               </Nav>
               <Navbar.Brand href="#installningar" className="text-white">Settings</Navbar.Brand>
             </Navbar.Collapse>
-
             <GoogleLogout
               clientId="1055370208996-0gh5pa9edlb3vcedlgor856pdgc1n7cm.apps.googleusercontent.com"
               buttonText="Logout"
               onLogoutSuccess={this.logout}
             >
             </GoogleLogout>
-
           </Navbar>
     </React.Fragment>
     )

@@ -8,7 +8,6 @@ import {getRecommendations} from '../redux/reducers/recommendations';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import {getChatPosts} from '../redux/reducers/chatPosts';
 import { getUser } from '../redux/reducers/users';
-// RUN npm i socket.io-client
 import socketIOClient from "socket.io-client";
 const URL_LOCAL = 'http://localhost:8080';
 
@@ -103,7 +102,7 @@ class ChatPanel extends Component{
 
       socket.on("NewPost", data => {
         console.log("SocketIO event for new post created - reloading post if in active channel:", data);
-        if(this.props.current_group.id == data) {
+        if(this.props.current_group.id === data) {
             const {fetchGroupChatPosts} = this.props;
             fetchGroupChatPosts(data);
         }
@@ -111,7 +110,7 @@ class ChatPanel extends Component{
 
     return (
       <React.Fragment>
-        {this.props.current_group.id && this.props.show_component == false ?
+        {this.props.current_group.id && this.props.show_component === false ?
         <div className="chatBox m-2">
           <div className="mt-2 pt-2">
             <p className="lead">GROUP CHAT</p>
@@ -141,7 +140,6 @@ const mapStateToProps = state => ({
   user: getUser(state),
   show_component: showComponent(state),
   chat_posts: getChatPosts(state),
-  recommendations: getRecommendations(state),
   pending: getGroupsPending(state)
 })
 

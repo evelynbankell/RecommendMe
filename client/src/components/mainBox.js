@@ -64,7 +64,7 @@ class MainBox extends Component{
           <AddGroup/>
           :
 
-        <div className = "">
+        <div>
           {this.props.show_update ? <UpdateGroup/> :
           <div className="container">
           <div className = "row m-0 p-0">
@@ -103,7 +103,6 @@ class MainBox extends Component{
           </div>
           }
         </div>
-
       }
       </React.Fragment>
     )

@@ -35,11 +35,6 @@ class GetGroups extends React.Component {
       super(props);
   }
 
-  handleGetGroup = () => {
-    const {fetchGroups} = this.props;
-    fetchGroups();
-  };
-
   handleGroup = (group) => {
       const current_group = group;
       const {fetchOneGroup, hideShowComponent} = this.props;
@@ -55,7 +50,6 @@ class GetGroups extends React.Component {
     const {fetchGroups} = this.props;
     fetchGroups();
   }
-
 
   render() {
     const {groups, current_group, user, show_component} = this.props;

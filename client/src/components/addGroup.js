@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchOneGroup, fetchGroups, fetchAddGroup } from '../redux/fetchGroups';
@@ -77,14 +76,10 @@ class AddGroup extends React.Component {
       super(props);
   }
 
-
-
   handleNewGroup = (title, imageURL) => {
     const {fetchAddGroup} = this.props;
     fetchAddGroup(title, this.props.user.name, imageURL);
     socket.emit('NewGroup', this.props.current_group.id);
-  //  const {fetchGroups} = this.props;
-  //  fetchGroups();
   };
 
   render() {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
@@ -35,15 +34,14 @@ class LoginModal extends React.Component {
 
   render() {
     const {error, pending, user} = this.props;
-    console.log("USER", user);
 
-    if (this.props.user.active == "false") {
+    if (this.props.user.active === "false") {
       this.props.user.active = "true";
     }
 
     return (
         <div>
-        { this.props.user.length == 0 ||  this.props.user.email == undefined ?
+        { this.props.user.length === 0 ||  this.props.user.email === undefined ?
         <div className="modal display-block">
           <section className="modal-main">
             <div className="card titleSignIn">
@@ -66,8 +64,6 @@ class LoginModal extends React.Component {
           </div>
           : ""}
         </div>
-
-
     );
   }
 };

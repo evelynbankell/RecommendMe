@@ -87,9 +87,10 @@ class UpdateGroup extends React.Component {
   }
 
   handleClickHide = (show_update) => {
-    const {setHideUpdate, fetchOneGroup} = this.props;
+    const {setHideUpdate, fetchOneGroup, fetchGroups} = this.props;
     setHideUpdate();
     fetchOneGroup(this.props.current_group.id);
+    fetchGroups();
   };
 
   handleUpdateGroup = (current_group, title, imageURL) => {
@@ -97,7 +98,6 @@ class UpdateGroup extends React.Component {
     fetchUpdateGroup(current_group.id, title, imageURL);
     socket.emit('UpdateGroup', this.props.current_group.id);
     //fetchOneGroup(current_group.id);
-    //fetchGroups();
   };
 
   render() {

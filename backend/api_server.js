@@ -66,9 +66,13 @@ const photo_bucket = 'tddd27-recommendme-photos';
 const group = require('./group');
 const post = require('./chatPost');
 const user = require('./user');
-const groupMember = require('./groupMember');
 const recommendation = require('./recommendation');
 
+
+//
+// GROUOPS
+//
+//get all groups
 app.get('/groups', async (req, res, next) => {
   try {
     let groups = await group.getGroups(datastore);
@@ -81,6 +85,7 @@ app.get('/groups', async (req, res, next) => {
   }
 });
 
+//get one specific groups
 app.get('/groups/:id', async (req, res, next) => {
   //console.log("GET /groups/:id ", req.params)
   try {
@@ -98,6 +103,7 @@ app.get('/groups/:id', async (req, res, next) => {
   }
 });
 
+// insert new group
 // Content-type: form-data
 app.post('/groups', async (req, res, next) => {
   // upload image and move to GCP Storage
@@ -293,25 +299,8 @@ app.put('/users/:email', async (req, res, next) => {
 
 //add a user
 app.post('/users', async (req, res, next) => {
-  // upload image and move to GCP Storage
-
-  // TODO: add a default image here
-  //let imageURL = '';
-  //try {
-  //  if(req.files) {
-      //  imageURL = req.files.imageURL;
-    //    let unique_filename = uniqueFilename('') + path.extname(imageURL.name);
-    //    imageURL.mv('./uploads/' + unique_filename);
-    //    imageURL = await uploadFile('./uploads/', unique_filename);
-  //  }
-  //} catch (err) {
-  //    res.status(500).send(err);
-  //}
-
-  // insert group into GCP DataStore
   try {
     let data = req.body;
-  //  data['imageURL']= imageURL;
     let key = await user.addUser(datastore, data);
     console.log("POST /users", key);
     res.json(`{id: ${key.id}}`);
@@ -321,7 +310,10 @@ app.post('/users', async (req, res, next) => {
   }
 });
 
+//
 // REST API chatPost
+//
+// get al posts in a group
 app.get('/groups/:id/chatposts', async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -335,7 +327,7 @@ app.get('/groups/:id/chatposts', async (req, res, next) => {
   }
 });
 
-
+// inser new post in a group
 app.post('/groups/:id/chatpost', async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -350,62 +342,6 @@ app.post('/groups/:id/chatpost', async (req, res, next) => {
     res.status(400).send(error);
   }
 });
-
-
-//
-// GROUP MEMBERS
-//
-//add group member
-app.post('/groups/:groupId/users/:userId', async (req, res, next) => {
-  try {
-    const groupId = req.params.groupId;
-    const userId = req.params.userId;
-    let data = req.body;
-    console.log("data:", data);
-    let key = await groupMember.addGroupMember(datastore, groupId, userId, data);
-    console.log("POST /groups/:id/users", key);
-
-    res.json(`{key: ${key}}`); //`{key: ${key}}`
-  } catch (error) {
-    next(error);
-    res.status(400).send(error);
-  }
-});
-
-//get users for specific group
-app.get('/groups/:id/users', async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    //let data = req.body;
-
-    let key = await groupMember.getGroupMembers(datastore, id, req.body);
-    console.log("GET /groups/:id/users", key);
-
-    res.json(`{key: ${key}}`); //`{key: ${key}}`
-  } catch (error) {
-    next(error);
-    res.status(400).send(error);
-  }
-});
-
-//get groups for specific user
-app.get('/users/:id/groups', async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    //let data = req.body;
-
-    let key = await groupMember.getUserGroups(datastore, id, req.body);
-    console.log("GET /users/:id/groups", key);
-
-    res.json(`{key: ${key}}`); //`{key: ${key}}`
-  } catch (error) {
-    next(error);
-    res.status(400).send(error);
-  }
-});
-
-
-
 
 
 // Uploads a local file to the bucket

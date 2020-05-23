@@ -34,7 +34,7 @@ async function getRecommendations(datastore, id) {
     let recommendations = [];
     console.log("getRecommendations");
     const key = datastore.key(['Group', datastore.int(id), 'Recommendation']);
-    const ancestorKey = datastore.key(['Group', datastore.int(id)]);
+    //const ancestorKey = datastore.key(['Group', datastore.int(id)]);
     try {
       const query = await datastore
         .createQuery('Recommendation')

@@ -43,7 +43,6 @@ async function getGroups(datastore) {
 };
 
 async function getGroup(datastore, id) {
-//TODO: fixa
     //console.log("getGroup - id: ", id);
     const key = datastore.key(['Group', datastore.int(id)]);
     //console.log("getGroup - key: ", key);
