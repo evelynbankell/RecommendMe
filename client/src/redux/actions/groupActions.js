@@ -16,6 +16,7 @@ export function deleteGroup(group) {
     }
 }
 
+
 export function updateGroup(group) {
     return {
         type: ADD_GROUP,

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setShowComponent } from '../redux/actions/groupActions';
 import { fetchOneGroup, fetchGroups, fetchAddGroup } from '../redux/fetchGroups';
+import { fetchUpdateUser, fetchUser, fetchAddUser } from '../redux/fetchUsers';
 import {getGroupsError, getGroupsPending, getGroups, getGroup, showComponent} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
 
@@ -28,6 +29,13 @@ class SideBar extends Component{
         <div>
           <p className="p-2 lead"> Welcome {this.props.user.name}</p>
         </div>
+
+        <div class="col-sm-12 my-auto">
+          {this.props.user.imageURL ?
+          <img className="pic pt-2" src= {this.props.user.imageURL} alt="" />
+          : "" }
+        </div>
+
           <p className="p-3 group-title" onClick={() => this.handleClick(this.props.show_component )}>CREATE NEW GROUP</p>
         <div>
           <GetGroups />
@@ -46,6 +54,7 @@ const mapStateToProps = state => ({
   pending: getGroupsPending(state)
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
+    fetchAddUser: fetchAddUser,
     fetchAddGroup: fetchAddGroup,
     setShowComponent: setShowComponent
 }, dispatch)
