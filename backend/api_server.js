@@ -389,6 +389,10 @@ io.on('connection', socket => {
     console.log('delete group: ', id);
     socket.broadcast.emit('DeleteGroup', id);
   });
+  socket.on('DeleteRecommendation', id => {
+    console.log('delete recommendation: ', id);
+    socket.broadcast.emit('DeleteRecomendation', id);
+  });
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
