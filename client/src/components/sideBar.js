@@ -27,7 +27,7 @@ class SideBar extends Component{
           <p className="p-2 lead"> Welcome {this.props.user.name}</p>
         </div>
 
-        <div class="col-sm-12 my-auto">
+        <div className="col-sm-12 my-auto">
           {this.props.user.imageURL ?
           <img className="pic pt-2" src= {this.props.user.imageURL} alt="" />
           : "" }

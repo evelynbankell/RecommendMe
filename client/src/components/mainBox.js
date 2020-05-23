@@ -41,21 +41,8 @@ class MainBox extends Component{
     socket.emit('DeleteGroup', this.props.current_group.id);
   };
 
-  handleClick = (recomendation_id) => {
-    const {fetchDeleteRecommendation} = this.props;
-    fetchDeleteRecommendation(recomendation_id);
-    const {setShowComponent} = this.props;
-    setShowComponent();
-    socket.emit('DeleteRecomendation', this.props.current_recommendation.id);
-  };
-
 
   handleUpdate = (group_id) => {
-    const {setShowUpdate} = this.props;
-    setShowUpdate();
-  };
-
-  handleUpdate = (recomendation_id) => {
     const {setShowUpdate} = this.props;
     setShowUpdate();
   };
@@ -73,11 +60,6 @@ class MainBox extends Component{
         fetchGroups();
       });
 
-      socket.on("DeleteRecomendation", data => {
-        console.log("SocketIO event for delete recommendation created - reloading recommendations:", data);
-        const {fetchRecommendations} = this.props;
-        fetchRecommendations();
-      });
 
     return (
       <React.Fragment>
