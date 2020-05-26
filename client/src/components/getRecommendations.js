@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDeleteRecommendation, fetchGroupRecommendations } from '../redux/fetchRecommendations';
+import { fetchOneGroup} from '../redux/fetchGroups';
 import {getRecommendationsError, getRecommendationsPending, getGroupRecommendations, getRecommendationGroup} from '../redux/reducers/recommendations';
 import {getGroup} from '../redux/reducers/groups';
 import { getUser } from '../redux/reducers/users';
+
+import socketIOClient from "socket.io-client";
+const URL_LOCAL = 'http://localhost:8080';
+
+let socket = null;
 
 class TableBody extends React.Component {
   constructor(props) {
@@ -73,7 +79,7 @@ class TableBody extends React.Component {
         </div>
         <div className="col-12">
           {recommendation.whatUser != "undefined" ?
-            <p className="m-0 p-0"><strong>User:</strong> {this.props.user.name}</p>
+            <p className="m-0 p-0"><strong>User:</strong> {recommendation.createdBy}</p>
           : "" }
         </div>
         <div className="col-12">
@@ -97,12 +103,20 @@ class GetRecommendations extends React.Component {
     fetchDeleteRecommendation(group_id, rec_id);
     const {fetchGroupRecommendations} = this.props;
     fetchGroupRecommendations(group_id);
-
+      socket.emit('DeleteRecomendation', group_id);
   };
 
 
   render() {
+    socket = socketIOClient(URL_LOCAL);
     const {recommendations_current_group, current_group, error, pending, user} = this.props;
+
+    socket.on("DeleteRecomendation", data => {
+      console.log("SocketIO event for delete recommendation created - reloading recommendations:", data);
+      const {fetchGroupRecommendations} = this.props;
+      fetchGroupRecommendations(this.props.current_group.id);
+
+    });
 
     return (
         <React.Fragment>
@@ -136,7 +150,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchGroupRecommendations: fetchGroupRecommendations,
-    fetchDeleteRecommendation: fetchDeleteRecommendation
+    fetchDeleteRecommendation: fetchDeleteRecommendation,
+    fetchOneGroup: fetchOneGroup
 }, dispatch)
 
 

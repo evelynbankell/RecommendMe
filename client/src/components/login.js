@@ -58,6 +58,7 @@ class LoginModal extends React.Component {
                    >
                   </GoogleLogin>
                 </div>
+                Don't have an account? Sign up <a href="https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp&hl=en">here</a>
               </div>
             </div>
           </section>
