@@ -69,7 +69,6 @@ class AddRec extends React.Component {
   }
 
   handleChangeImage = event => {
-
     this.imageUrl = event.target.files[0];
   }
 
