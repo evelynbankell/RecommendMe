@@ -83,7 +83,7 @@ class AddRec extends React.Component {
         <div className="row form-group">
           <div className="col-6">
 
-            <label className="pt-2 pr-2 mb-0" name="category" type="text" label="Category">Category:</label>
+            <label className="pt-2 pr-2 mb-0" name="category" type="text" label="Category">Category*:</label>
             <input
             name="category"
             className="form-control"
@@ -95,8 +95,8 @@ class AddRec extends React.Component {
             />
 
             <datalist id="categories">
-              <option value="E-Book"/>
-              <option value="TV-serie"/>
+              <option value="Book"/>
+              <option value="TV-show"/>
               <option value="Movie"/>
               <option value="Recipe"/>
               <option value="Music"/>
@@ -104,7 +104,7 @@ class AddRec extends React.Component {
 
           </div>
           <div className="col-6">
-            <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title: </label>
+            <label className="pt-2 pr-2 mb-0" name="title" type="text" label="Title">Title*: </label>
             <input
             type="string"
             name="title"
@@ -117,7 +117,7 @@ class AddRec extends React.Component {
             />
           </div>
           <div className="col-6">
-            <label className="pt-2 pr-2 mb-0" name="description" type="text" label="Description">Description: </label>
+            <label className="pt-2 pr-2 mb-0" name="description" type="text" label="Description">Description*: </label>
             <input
             type="text"
             name="description"
@@ -205,6 +205,8 @@ class AddRec extends React.Component {
           </div>
           <div className="col-12 pt-2">
               <Button variant="primary" type="submit">Create</Button>
+          </div>
+          <div className="col-12 pt-2">
           </div>
         </div>
       </Form>
