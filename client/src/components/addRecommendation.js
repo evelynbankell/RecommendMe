@@ -112,6 +112,7 @@ class AddRec extends React.Component {
             placeholder="Enter a title"
             value={title}
             onChange={this.handleChangeTitle}
+            title ='Please fill in this field'
             required
             />
           </div>

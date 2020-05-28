@@ -1,5 +1,15 @@
 # TDDD27_2020_webproject
 
+## Link to project course screencast
+https://youtu.be/CIW3ZPQ2qDo
+
+## Links to individual screencasts
+### Evelyn Bankell - eveba996
+https://www.youtube.com/watch?v=i54tXiaF-zY
+
+### Emil Edström - emied641
+https://youtu.be/sWugTgL3mzM
+
 
 ## Link to mid course screencast
 https://youtu.be/C1BG7mdArx8
