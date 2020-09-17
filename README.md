@@ -7,9 +7,6 @@ https://youtu.be/CIW3ZPQ2qDo
 ### Evelyn Bankell - eveba996
 https://www.youtube.com/watch?v=i54tXiaF-zY
 
-### Emil Edström - emied641
-https://youtu.be/sWugTgL3mzM
-
 
 ## Link to mid course screencast
 https://youtu.be/C1BG7mdArx8
@@ -26,13 +23,3 @@ Client framework: React + Redux
 Backend development: Node.js  
 Cloud and database service : Google Cloud Platform  
 Real time communication: Socket.IO  
-
-
----
-
-We will code using both pair programming and individual coding.
-
-
-Contributors:  
-Emil Edström emied641  
-Evelyn Bankell eveba996  
