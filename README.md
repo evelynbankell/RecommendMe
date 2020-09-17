@@ -1,15 +1,10 @@
 # TDDD27_2020_webproject
 
-## Link to project course screencast
+## Project course screencast
 https://youtu.be/CIW3ZPQ2qDo
 
-## Links to individual screencasts
-### Evelyn Bankell - eveba996
+## Individual screencasts
 https://www.youtube.com/watch?v=i54tXiaF-zY
-
-
-## Link to mid course screencast
-https://youtu.be/C1BG7mdArx8
 
 
 ## Functional specification
